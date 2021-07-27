@@ -31,11 +31,11 @@ public class AnimationController : MonoBehaviour
             rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
         }
         
-        if(rbVel.magnitude > 0.2f)
+        if(rbVel.magnitude > 0.2)
         {
             animator.SetBool("isRunning", true);
         }
-        else
+        else if(inputManager.inputVectorLastChanged > 0.2f)
         {
             animator.SetBool("isRunning", false);
         }

@@ -10,14 +10,17 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public Vector2 inputVectorSoftened;
     private Vector2 inputVectorPreviousFrame;
     private float inputSoftenedTimer = 0f;
+    [HideInInspector]public float inputVectorLastChanged = 0;
 
     private void Update()
     {
+        inputVectorLastChanged += Time.deltaTime;
         inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         movementScript.inputVector = inputVector;
         if (inputVector != inputVectorPreviousFrame)
         {
             inputSoftenedTimer = 0.04f;
+            inputVectorLastChanged = 0f;
         }
         if (inputSoftenedTimer <= 0f)
         {
