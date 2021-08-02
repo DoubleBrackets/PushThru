@@ -14,6 +14,7 @@ public class BlitRenderPassFeature : ScriptableRendererFeature
         {
             material = _material;
             tempRenderTargetHandler.Init("_TempTexture");
+
         }
         // This method is called before executing the render pass.
         // It can be used to configure render targets and their clear state. Also to create temporary render target textures.

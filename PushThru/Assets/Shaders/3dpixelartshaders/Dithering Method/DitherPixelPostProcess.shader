@@ -55,10 +55,11 @@ Shader "Unlit/DitherPixelPostProcess"
                 float2 resolution = float2(_ScreenParams.x,_ScreenParams.y);
                 float2 resolutionInverse = 1/resolution;
                 float2 pixelPosition = resolution * i.uv;
-                float minDepth = 1;
+                float minDepth = 10000;
                 float4 col = tex2D(_MainTex, i.uv);
                 if(!(_Pixelize == 1))
                     return col;
+
                 //Sampling
                 int lower = -floor((_PixelSize-1)/2);
                 int upper = floor(_PixelSize/2);
@@ -69,13 +70,19 @@ Shader "Unlit/DitherPixelPostProcess"
                         float2 samplePixelPosition = pixelPosition + float2(x,y);
                         float2 sampleUVPosition = samplePixelPosition * resolutionInverse;
                         float4 sampledColor = tex2D(_MainTex,sampleUVPosition);
-                        float raw_depth = tex2D(_CameraDepthTexture, sampleUVPosition).r;
-                        float depth = Linear01Depth(raw_depth);
-                        if(depth < minDepth)
+                        //if(sampledColor.a > 0.1)
                         {
-                            minDepth = depth;
-                            col = sampledColor;
-                        }   
+                            float raw_depth = tex2D(_CameraDepthTexture, sampleUVPosition).r;
+                            float depth = LinearEyeDepth(raw_depth);
+                            float yOffset = sampleUVPosition.y*0.008f;
+                            depth -= yOffset;
+                            if(depth < minDepth)
+                            {
+                                minDepth = depth;
+                                col = sampledColor;
+                            }   
+                        }
+                        
                     }
                 }
                 return col;

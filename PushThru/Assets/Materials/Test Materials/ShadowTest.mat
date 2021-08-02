@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CelShadeTest
-  m_Shader: {fileID: -6465566751694194690, guid: 75c31f1c828958840855f47d5c9f7611,
+  m_Name: ShadowTest
+  m_Shader: {fileID: -6465566751694194690, guid: 01da7cf814ecf374b89a712bf36b482e,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
