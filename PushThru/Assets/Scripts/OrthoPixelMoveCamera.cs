@@ -21,6 +21,8 @@ public class OrthoPixelMoveCamera : MonoBehaviour
     public Vector3 currentPixelOffset;
 
     public float lerpFactor;
+    public float snapDistance;
+    public float maxDistance;
     private void Awake()
     {
         orthoCam = this;
@@ -29,8 +31,14 @@ public class OrthoPixelMoveCamera : MonoBehaviour
         offset.y = 0;
         currentPosition = transform.position;
     }
-
-    void LateUpdate()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            locked = !locked;
+        }
+    }
+    void FixedUpdate()
     {
         float edgeWidth = 100;
         Vector2 mousePos = Input.mousePosition;
@@ -50,10 +58,6 @@ public class OrthoPixelMoveCamera : MonoBehaviour
         else if (mousePos.y > size.y - edgeWidth)
             z = 1;
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            locked = !locked;
-        }
         float modifier = 1;
         if(Input.GetKey(KeyCode.LeftShift))
         {
@@ -66,11 +70,11 @@ public class OrthoPixelMoveCamera : MonoBehaviour
 
         if (!locked)
         {
-            currentPosition += rot * movement * Time.deltaTime;
+            currentPosition += rot * movement * Time.fixedDeltaTime;
         }
         else if (locked)
         {
-            float time = lerpFactor * Time.deltaTime;
+            float time = lerpFactor;
             LerpToTarget(transform, time);
         }
         //Lock
@@ -81,8 +85,26 @@ public class OrthoPixelMoveCamera : MonoBehaviour
     {
         Vector3 targetPos = target.transform.position;
         Vector3 cPos = transform.position;
-        Vector3 newPos = new Vector3(Mathf.Lerp(cPos.x, targetPos.x, time), transform.position.y, Mathf.Lerp(cPos.z, targetPos.z, time));
-        currentPosition = newPos;
+        targetPos.y = cPos.y;
+        Vector3 cVel = Vector3.zero;
+        Vector3 newPos = Vector3.SmoothDamp(cPos, targetPos, ref cVel, time);
+        Vector3 newPosConst = newPos;
+        if ((targetPos - cPos).magnitude < snapDistance)
+        {
+            newPos = cPos;
+        }
+        if(Mathf.Abs((targetPos - newPosConst).x) > maxDistance)
+        {
+            float diff = Mathf.Sign((targetPos - cPos).x) * maxDistance;
+            newPos.x = targetPos.x - diff;
+        }
+        if (Mathf.Abs((targetPos - newPosConst).z) > maxDistance)
+        {
+            float diff = Mathf.Sign((targetPos - cPos).z) * maxDistance;
+            newPos.z = targetPos.z - diff;
+        }
+        print((cPos - targetPos).magnitude);
+        currentPosition += newPos - cPos;
     }
 
 

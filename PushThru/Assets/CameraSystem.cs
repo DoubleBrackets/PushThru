@@ -33,9 +33,9 @@ public class CameraSystem : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (pixelMoveCamera.locked)
+/*        if (pixelMoveCamera.locked)
             actualViewCamera.transform.localPosition = Vector3.zero;
-        else
+        else*/
             actualViewCamera.transform.localPosition = new Vector3(pixelMoveCamera.currentPixelOffset.x, pixelMoveCamera.currentPixelOffset.z / 2f, 0);
     }
 
