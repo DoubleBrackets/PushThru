@@ -48,6 +48,9 @@ public class ForceMovementScript : MonoBehaviour
     private int _slowdownActive = 0;
     public bool slowdownActive { get => _slowdownActive == 0; }
 
+
+    public Vector2 facing;
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -117,6 +120,7 @@ public class ForceMovementScript : MonoBehaviour
             if (!useZForce || !movementActive)
                 zVelocity *= slowdownFactor;
         }
+        facing = new Vector2(xVelocity, zVelocity).normalized;
     }
 
     public void IncrementControlAndSlowdown()

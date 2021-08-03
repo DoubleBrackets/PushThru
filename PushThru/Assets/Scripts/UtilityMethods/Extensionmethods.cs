@@ -14,4 +14,9 @@ public static class Extensionmethods
     {
         return new Vector3(Mathf.Cos(theta * Mathf.Deg2Rad), 0, Mathf.Sin(theta * Mathf.Deg2Rad));
     }
+
+    public static Vector3 Vector2To3TopDown(this Vector2 vec)
+    {
+        return new Vector3(vec.x, 0, vec.y);
+    }
 }

@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PixelDitherMatUnlitHairTex
-  m_Shader: {fileID: -6465566751694194690, guid: a5f47530cac311249a90b003b232eb60,
+  m_Shader: {fileID: -6465566751694194690, guid: bb415891f1f33854c89b4c751e0d9c1d,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -97,6 +97,7 @@ Material:
     - LIGHTMAP: 0
     - Vector1_296805d31b2049d380e67bccbdad28e8: 0.1
     - Vector1_55e6e9c8d16746a28d67af79828cc224: 0
+    - Vector1_716516503ca942d99afff12ac7efe8cc: 0.1
     - Vector1_7712c5cd22874726acf36da6cac4f00c: 0.99
     - Vector1_a11ffbdcd2994207a2720c08bfcb5862: 0.3
     - Vector1_dad4b8e83eed478089cf631dc69531d3: 1
@@ -134,11 +135,14 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Vector2_4b7e63ec758047448f099b8e9e9c6332: {r: 0, g: 1, b: 0, a: 0}
+    - Vector3_db1a8177cb794e87ad8395864cf63c19: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CenterPosition: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorA: {r: 0, g: 0.08398199, b: 1, a: 1}
     - _ColorB: {r: 0, g: 1, b: 0.72214794, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GlobalPosition: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _StartOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
