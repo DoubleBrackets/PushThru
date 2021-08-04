@@ -663,7 +663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529213755}
   m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: -1.41, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
   m_Father: {fileID: 520662966}
@@ -2218,17 +2218,18 @@ MonoBehaviour:
   xspeed: 5
   zspeed: 10
   lockStep: 0.0125
+  pixelSize: 4
   cam: {fileID: 352040634}
   locked: 1
   hardLock: 0
   stuckToTarget: 0
   target: {fileID: 543450653643071979}
   currentPixelOffset: {x: 0, y: 0, z: 0}
-  lerpFactor: 0.15
-  maxDistance: 6
+  lerpFactor: 0.11
+  maxDistance: 7
   isCurrentlyTracking: 0
   predictionRb: {fileID: 98829828}
-  predictionFactor: 1.3
+  predictionFactor: 1
 --- !u!1 &1861738732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2561,7 +2562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 98829828}
-  baseMaxMoveSpeed: 5
+  baseMaxMoveSpeed: 4.8
   movementForce: 35
   zAxisMultiplier: 2
   diagonalMultiplier: 1

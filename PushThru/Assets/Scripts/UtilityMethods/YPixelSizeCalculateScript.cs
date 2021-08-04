@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class YPixelSizeCalculateScript : MonoBehaviour
 {
+    //currently 0.016
     // Start is called before the first frame update
     int counter = 0;
     Vector3 pos;

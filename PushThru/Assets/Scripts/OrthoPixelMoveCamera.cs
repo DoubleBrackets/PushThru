@@ -11,6 +11,7 @@ public class OrthoPixelMoveCamera : MonoBehaviour
     public float xspeed;
     public float zspeed;
     public float lockStep;
+    public int pixelSize;
     public Camera cam;
 
     public bool locked = false;
@@ -34,7 +35,7 @@ public class OrthoPixelMoveCamera : MonoBehaviour
     private void Awake()
     {
         orthoCam = this;
-        lockStep *= 4;
+        lockStep *= pixelSize;
         offset = transform.localPosition;
         offset.y = 0;
         currentPosition = transform.position;
@@ -124,7 +125,7 @@ public class OrthoPixelMoveCamera : MonoBehaviour
             return;
         }
 
-        if((targetPosition - targetPos).magnitude > maxDistance)
+        if(!isCurrentlyTracking && (targetPosition - targetPos).magnitude > maxDistance)
         {
             Vector3 prediction = predictionRb.velocity;
             prediction.y = 0;
@@ -141,9 +142,10 @@ public class OrthoPixelMoveCamera : MonoBehaviour
             Vector3 cVel = Vector3.zero;
             Vector3 newPos = Vector3.SmoothDamp(cPos, targetPos, ref cVel, time);
 
-            if ((currentPosition - targetPos).magnitude <= 0.1f)
+            if ((currentPosition - targetPos).magnitude <= 1.5f)
             {
                 isCurrentlyTracking = false;
+                targetPosition = currentPosition;
             }
             currentPosition += newPos - cPos;
         }

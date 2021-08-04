@@ -1448,7 +1448,7 @@
     "m_SourceType": 1,
     "m_FunctionName": "yPixelLock",
     "m_FunctionSource": "",
-    "m_FunctionBody": "//Calculated using sqrt3 * x pixel size * 4/3 * 4\n_out = 0.02886751346;"
+    "m_FunctionBody": "//Calculated using sqrt3 * x pixel size * 4/3 * pixel count\n_out = 0.02886751346;"
 }
 
 {
@@ -2248,10 +2248,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1664.0,
-            "y": -670.4000244140625,
+            "x": -1663.9998779296875,
+            "y": -671.1998901367188,
             "width": 208.0,
-            "height": 278.3999938964844
+            "height": 278.39996337890627
         }
     },
     "m_Slots": [
@@ -5519,10 +5519,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2127.37353515625,
-            "y": 0.5289978981018066,
-            "width": 0.0,
-            "height": 0.0
+            "x": -2139.199951171875,
+            "y": 77.5999755859375,
+            "width": 128.7999267578125,
+            "height": 34.40000915527344
         }
     },
     "m_Slots": [
