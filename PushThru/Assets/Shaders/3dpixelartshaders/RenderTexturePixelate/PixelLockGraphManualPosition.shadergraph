@@ -1213,7 +1213,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "X",
     "m_StageCapability": 3,
-    "m_Value": 0.012500000186264515,
+    "m_Value": 0.014999999664723874,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -1462,7 +1462,7 @@
     "m_SourceType": 1,
     "m_FunctionName": "yPixelLock",
     "m_FunctionSource": "",
-    "m_FunctionBody": "//Calculated using sqrt3 * x pixel size * 4/3 * pixel count\n_out = 0.02886751346;"
+    "m_FunctionBody": "//Calculated using sqrt3 * x pixel size * 4/3 * pixel count\n_out = 0.03464101615;"
 }
 
 {
@@ -2346,7 +2346,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Z",
     "m_StageCapability": 3,
-    "m_Value": 0.02500000037252903,
+    "m_Value": 0.029999999329447748,
     "m_DefaultValue": 0.0,
     "m_Labels": [
         "Z"
