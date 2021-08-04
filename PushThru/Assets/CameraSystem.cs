@@ -31,12 +31,16 @@ public class CameraSystem : MonoBehaviour
         displayQuad.transform.localScale = new Vector3(orthoSizeFull * res.x / res.y, orthoSizeFull, 1);
     }
 
+    private void FixedUpdate()
+    {
+        if(!pixelMoveCamera.stuckToTarget)
+            actualViewCamera.transform.localPosition = new Vector3(pixelMoveCamera.currentPixelOffset.x, pixelMoveCamera.currentPixelOffset.z / 2f, 0);
+    }
+
     private void LateUpdate()
     {
-/*        if (pixelMoveCamera.locked)
+        if (pixelMoveCamera.stuckToTarget)
             actualViewCamera.transform.localPosition = Vector3.zero;
-        else*/
-            actualViewCamera.transform.localPosition = new Vector3(pixelMoveCamera.currentPixelOffset.x, pixelMoveCamera.currentPixelOffset.z / 2f, 0);
     }
 
 }

@@ -38,6 +38,7 @@ public class ForceMovementScript : MonoBehaviour
     private float movementBonus = 0f;
     public float movementForce;
     public float zAxisMultiplier = 2;
+    public float diagonalMultiplier;
     //Acceleration magnitude per fixedUpdate based on movementForce
     private float fixedAccelMagnitude;
     //Velocity multiplier per fixed update when slowdown is active
@@ -72,7 +73,15 @@ public class ForceMovementScript : MonoBehaviour
         //Horizontal movement
         Vector2 inputVector = this.inputVector;
         //applies z multiplier
+        float multipliers = 1;
+        if(inputVector.x != 0 && inputVector.y != 0)
+        {
+            //diagonal multiplier
+            multipliers *= diagonalMultiplier;
+        }
+
         inputVector.y *= zAxisMultiplier;
+        inputVector *= multipliers;
 
         bool useXForce = false, useZForce = false;
         if (movementActive)
@@ -84,6 +93,7 @@ public class ForceMovementScript : MonoBehaviour
             Vector2 unscaledVelAfterForce = new Vector2(xVelAfterForce, zVelAfterForce/zAxisMultiplier);
             Vector2 scaledVelocity = velocity;
             scaledVelocity.y /= zAxisMultiplier;
+            scaledVelocity /= multipliers;
             bool velOverLimit = scaledVelocity.magnitude > currentMaxMoveSpeed + movementBonus;
             bool forceWithinLimit = unscaledVelAfterForce.magnitude <= currentMaxMoveSpeed + movementBonus && !velOverLimit;
             //force goes over limit or current speed is over but force is directed in opposite direction, or force does not exceed limit, apply force
