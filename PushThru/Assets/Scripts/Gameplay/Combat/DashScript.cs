@@ -78,19 +78,27 @@ public class DashScript : MonoBehaviour
     private void PerformDash()
     {
         targetDir.y *= 2;
-        bool hit = Physics.BoxCast(colliderCast.center, 
-            colliderCast.bounds.extents-new Vector3(0,0.1f,0), 
-            targetDir.Vector2To3TopDown(), 
-            out RaycastHit hitInfo, 
+        Vector3 size = colliderCast.bounds.extents;
+        bool hit = Physics.BoxCast(transform.position + colliderCast.center,
+            size - new Vector3(0.1f, 0.1f, 0.1f),
+            targetDir.Vector2To3TopDown(),
+            out RaycastHit hitInfo,
             Quaternion.identity,
-            maxDistance,
+            targetDir.magnitude * maxDistance,
             terrainMask);
+/*        bool hit = Physics.Raycast(transform.position + colliderCast.center, 
+            targetDir.Vector2To3TopDown(),
+            out RaycastHit hitInfo,
+            targetDir.magnitude * maxDistance,
+            terrainMask);*/
         float finalDistance = maxDistance;
-        if(hit)
+        Vector3 finalVector = new Vector3(targetDir.x, 0, targetDir.y) * finalDistance;
+        if (hit)
         {
-            print("e");
-            finalDistance = hitInfo.distance - 0.2f;
+            finalDistance = hitInfo.distance - 0.1f;
+            finalVector = new Vector3(targetDir.x, 0, targetDir.y).normalized * finalDistance;
         }
-        transform.position += new Vector3(targetDir.x, 0, targetDir.y) * finalDistance;
+
+        transform.position += finalVector;
     }
 }
