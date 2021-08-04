@@ -2218,7 +2218,7 @@ MonoBehaviour:
   xspeed: 5
   zspeed: 10
   lockStep: 0.0125
-  pixelSize: 4
+  pixelSize: 3
   cam: {fileID: 352040634}
   locked: 1
   hardLock: 0
