@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerEntity : Entity
 {
+
     public override void TakeDamage(Attack attack)
     {
         currentHealth -= attack.damage;

@@ -19,6 +19,7 @@ public class DashVFXScript : MonoBehaviour
 
     public Vector3 sonicBoomOffset;
     public GameObject sonicBoomObject;
+    public GameObject dustEffect;
 
     [ContextMenu("test")]
     public void CreateDashVFXTest()
@@ -29,16 +30,20 @@ public class DashVFXScript : MonoBehaviour
     public void CreateDashVFX(Vector3 startPos, Vector3 endPos,Vector3 dir)
     {
         Quaternion direction = Quaternion.Euler(new Vector3(0, -Mathf.Rad2Deg*Mathf.Atan2(dir.z, dir.x)+90f, 0));
-        print(direction.eulerAngles);
         CreateLineStreaks(startPos, endPos,dir,transform.rotation);
+        //Sonic boom
         sonicBoomObject.transform.position = transform.position + direction * sonicBoomOffset;
         sonicBoomObject.transform.rotation = direction;
         ParticleManager.particleManager.PlayParticle("DashBoomParticles");
+
+        dustEffect.transform.position = startPos;
+        dustEffect.transform.rotation = direction;
+        ParticleManager.particleManager.PlayParticle("DashDustParticles");
     }
 
     private void CreateLineStreaks(Vector3 startPos, Vector3 endPos,Vector3 dir,Quaternion playerRotation)
     {
-        startPos -= dir * marginSize;
+        startPos -= dir * marginSize/2f;
         endPos += dir * marginSize;
         foreach(LineStreak lineStreak in lineRenderers)
         {
