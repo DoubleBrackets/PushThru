@@ -22,7 +22,7 @@ public class AnimationController : MonoBehaviour
             float angle;
             if (inputManager.inputVectorSoftened != Vector2.zero)
             {
-                angle = Mathf.RoundToInt(rawInputAngle / 45 + 0.3f * dirSign) * 45;
+                angle = inputManager.inputVectorSoftened.Angle();
             }
             else
             {
@@ -33,11 +33,17 @@ public class AnimationController : MonoBehaviour
         
         if(rbVel.magnitude > 0.2)
         {
-            animator.SetBool("isRunning", true);
+            if(SetBool("isRunning", true))
+            {
+                ParticleManager.particleManager.PlayParticle("FootstepParticles");
+            }
         }
         else if(inputManager.inputVectorLastChanged > 0.2f)
         {
-            animator.SetBool("isRunning", false);
+            if(SetBool("isRunning", false))
+            {               
+                ParticleManager.particleManager.StopParticle("FootstepParticles");               
+            }
         }
     }
 
@@ -48,9 +54,12 @@ public class AnimationController : MonoBehaviour
             animator.Play(anim);
         }
     }
-
-    public void SetBool(string name, bool value)
+    public bool SetBool(string name, bool value)
     {
-        animator.SetBool(name, value);
+        if (animator.GetBool(name) != value)
+            animator.SetBool(name, value);
+        else
+            return false;
+        return true;
     }
 }

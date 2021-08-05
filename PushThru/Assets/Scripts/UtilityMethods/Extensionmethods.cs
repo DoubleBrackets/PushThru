@@ -19,4 +19,14 @@ public static class Extensionmethods
     {
         return new Vector3(vec.x, 0, vec.y);
     }
+
+    public static float YRotationDegrees(this Vector3 vec)
+    {
+        return Mathf.Rad2Deg*Mathf.Atan2(vec.z, vec.x);
+    }
+
+    public static float Angle(this Vector2 vec)
+    {
+        return Mathf.Rad2Deg * Mathf.Atan2(vec.y, vec.x);
+    }
 }

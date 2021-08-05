@@ -111,7 +111,21 @@ public class OrthoPixelMoveCamera : MonoBehaviour
             currentPixelOffset = currentPosition - transform.position;
         }
     }
-
+    public void UpdateTarget()
+    {
+        UpdateTarget(predictionFactor);
+    }
+    public void UpdateTarget(float _predictionFactor)
+    {
+        Vector3 targetPos = target.transform.position;
+        targetPos.y = currentPosition.y;
+        Vector3 prediction = predictionRb.velocity.normalized;
+        prediction.y = 0;
+        prediction *= _predictionFactor;
+        prediction.z *= 2;
+        targetPosition = targetPos + prediction;
+        isCurrentlyTracking = true;
+    }
 
     private void LerpToTarget(Transform toLerp, float time)
     {
@@ -127,11 +141,7 @@ public class OrthoPixelMoveCamera : MonoBehaviour
 
         if(!isCurrentlyTracking && (targetPosition - targetPos).magnitude > maxDistance)
         {
-            Vector3 prediction = predictionRb.velocity;
-            prediction.y = 0;
-            prediction *= predictionFactor;
-            targetPosition = targetPos + prediction;
-            isCurrentlyTracking = true;
+            UpdateTarget(predictionFactor);
         }
         if(isCurrentlyTracking)
         {

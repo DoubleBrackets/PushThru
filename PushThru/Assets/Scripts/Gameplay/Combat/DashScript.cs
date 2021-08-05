@@ -8,23 +8,18 @@ public class DashScript : MonoBehaviour
     public InputManager inputManager;
     public ForceMovementScript movementScript;
     public BoxCollider colliderCast;
-
+    public AnimationController animationController;
+    public Rigidbody rb;
+    public DashVFXScript vFXScript;
     //Dash Values
     public float maxDistance;
 
-    public float windupTime;
-    private float windupTimer = 0f;
     public float recoverTime;
     private float recoverTimer = 0f;
     public float cooldown;
     private float cooldownTimer = 0f;
 
     private Vector2 targetDir;
-
-    public bool isInWindup
-    {
-        get => windupTimer > 0;
-    }
 
     public bool isInRecover
     {
@@ -47,15 +42,6 @@ public class DashScript : MonoBehaviour
                 movementScript.DecrementMovementActive();
             }
         }
-        if(windupTimer > 0)
-        {
-            windupTimer -= Time.deltaTime;
-            if(windupTimer <= 0)
-            {
-                PerformDash();
-                recoverTimer = recoverTime;
-            }
-        }
     }
 
     private void StartDash()
@@ -68,15 +54,19 @@ public class DashScript : MonoBehaviour
             dir = movementScript.facing;
         }
         cooldownTimer = cooldown;
+        recoverTimer = recoverTime;
         targetDir = dir;
         movementScript.IncrementMovementActive();
-        windupTimer = windupTime;      
+        animationController.PlayAnimation("Dash");
+        PerformDash();
+        OrthoPixelMoveCamera.orthoCam.UpdateTarget(3);
     }
 
     public LayerMask terrainMask;
 
     private void PerformDash()
     {
+        Vector3 originalPosition = transform.position;
         targetDir.y *= 2;
         Vector3 size = colliderCast.bounds.extents;
         bool hit = Physics.BoxCast(transform.position + colliderCast.center,
@@ -93,12 +83,19 @@ public class DashScript : MonoBehaviour
             terrainMask);*/
         float finalDistance = maxDistance;
         Vector3 finalVector = new Vector3(targetDir.x, 0, targetDir.y) * finalDistance;
+        Vector3 dirVectorFlat = new Vector3(targetDir.x, 0, targetDir.y).normalized;
         if (hit)
         {
             finalDistance = hitInfo.distance - 0.1f;
-            finalVector = new Vector3(targetDir.x, 0, targetDir.y).normalized * finalDistance;
+            finalVector = dirVectorFlat * finalDistance;
         }
-
+        
         transform.position += finalVector;
+
+        Vector3 overshootVelocity = dirVectorFlat;
+        overshootVelocity *= movementScript.baseMaxMoveSpeed * 4f;
+        rb.velocity = overshootVelocity;
+        vFXScript.CreateDashVFX(originalPosition, originalPosition + finalVector, dirVectorFlat);
+
     }
 }

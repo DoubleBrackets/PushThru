@@ -12,6 +12,9 @@ ModelImporter:
   - first:
       74: -1978303741906493279
     second: Armature|idle
+  - first:
+      74: 1728212603955262588
+    second: Armature|dash
   externalObjects: {}
   materials:
     materialImportMode: 2
