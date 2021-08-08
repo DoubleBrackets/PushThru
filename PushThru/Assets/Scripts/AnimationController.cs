@@ -18,6 +18,7 @@ public class AnimationController : MonoBehaviour
     {
         playerAttackManager.BasicAttackStartedEvent += PlayBasicAttackAnimation;
         playerAttackManager.BasicAttackEndedEvent += EndBasicAttackAnimation;
+        handSword.SetActive(false);
     }
 
     private void PlayBasicAttackAnimation(int val)
@@ -36,7 +37,7 @@ public class AnimationController : MonoBehaviour
     private void Update()
     {
         Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
-        
+        SetBool("IsAttacking", playerAttackManager.isAttacking);
         if(rbVel.magnitude > 0.2)
         {
             if(SetBool("isRunning", true))

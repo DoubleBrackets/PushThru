@@ -18,6 +18,12 @@ ModelImporter:
   - first:
       74: -5002119045936295273
     second: Armature|Slice1
+  - first:
+      74: 2855071528530547496
+    second: Armature|Slice2
+  - first:
+      74: 520424546546600182
+    second: Armature|Slice3
   externalObjects: {}
   materials:
     materialImportMode: 2

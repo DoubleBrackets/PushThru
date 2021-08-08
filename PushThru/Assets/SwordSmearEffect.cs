@@ -6,7 +6,8 @@ public class SwordSmearEffect : MonoBehaviour
 {
     public LineRenderer lineRen;
 	public int steps;
-	public int frames;
+	public int showFrames;
+	public int hideFrames;
 	public float showDuration;
 	public float delay;
 
@@ -39,11 +40,11 @@ public class SwordSmearEffect : MonoBehaviour
 	IEnumerator Corout_ShowSmear()
     {
 		lineRen.positionCount = steps + 1;
-		for (int c = 0; c <= frames; c++)
+		for (int c = 0; c <= showFrames; c++)
 		{
 			for (int x = 0; x <= steps; x++)
 			{
-				float t = Mathf.Lerp(0,c / (float)frames, x / (float)steps);
+				float t = Mathf.Lerp(0,c / (float)showFrames, x / (float)steps);
 				lineRen.SetPosition(x, GetPointLocal(t));
 			}
 			yield return new WaitForFixedUpdate();
@@ -53,11 +54,11 @@ public class SwordSmearEffect : MonoBehaviour
 	IEnumerator Corout_HideSmear()
     {
 		yield return new WaitForSeconds(showDuration);
-		for(int c = 0;c <= frames;c++)
+		for(int c = 0;c <= hideFrames;c++)
         {
 			for (int x = 0; x <= steps; x++)
 			{
-				float t = Mathf.Lerp(c/(float)frames,1,x / (float)steps);
+				float t = Mathf.Lerp(c/(float)hideFrames,1,x / (float)steps);
 				lineRen.SetPosition(x, GetPointLocal(t));
 			}
 			yield return new WaitForFixedUpdate();

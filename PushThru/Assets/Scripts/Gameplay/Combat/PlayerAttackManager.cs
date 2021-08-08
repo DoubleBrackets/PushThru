@@ -7,6 +7,8 @@ public class PlayerAttackManager : MonoBehaviour
 {
     public InputManager inputManager;
     public ForceMovementScript movementScript;
+    public Rigidbody rb;
+    public PlayerFacingScript facing;
 
     public bool isAttacking
     { 
@@ -15,11 +17,24 @@ public class PlayerAttackManager : MonoBehaviour
 
     [HideInInspector]public Vector2 currentAttackDirection;
 
-    public float basicAttackDuration;
+
+    [System.Serializable]
+    public struct BasicAttackData
+    {
+        public float basicAttackDuration;
+        public SwordSmearEffect basicAttackSmear;
+        public float basicAttackForwardVelocity;
+    }
+
+    public BasicAttackData[] basicAttacks;
+ 
     private float attackDurationTimer = 0;
 
-    //Smears
-    public SwordSmearEffect[] basicAttackSmears;
+    private int comboCounter = 0;
+    private float basicAttackComboResetTimer = 0f;
+
+    public float basicAttackComboCooldown;
+    private float basicAttackComboCooldownTimer;
 
     //Events
     public event System.Action<int> BasicAttackStartedEvent;
@@ -35,6 +50,15 @@ public class PlayerAttackManager : MonoBehaviour
                 FinishAttack();
             }
         }
+        if(basicAttackComboResetTimer > 0)
+        {
+            basicAttackComboResetTimer -= Time.deltaTime;
+            if(basicAttackComboResetTimer <= 0)
+            {
+                comboCounter = 0;
+            }
+        }
+        basicAttackComboCooldownTimer -= Time.deltaTime;
     }
 
     private void Awake()
@@ -50,12 +74,37 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void PerformAttack()
     {
-        if (attackDurationTimer > 0)
+        if (attackDurationTimer > 0.11f)
             return;
-        attackDurationTimer = basicAttackDuration;
+        else if(attackDurationTimer > 0)
+        {
+            attackDurationTimer = 0;
+            FinishAttack();
+        }
+        if(basicAttackComboCooldownTimer <= 0)
+        {
+            PerformBasicAttack();
+        }
+       
+    }
+
+    private void PerformBasicAttack()
+    {
+        BasicAttackData basicAttack = basicAttacks[comboCounter];
+        attackDurationTimer = basicAttack.basicAttackDuration;
         currentAttackDirection = inputManager.mouseDirNormalized;
         movementScript.IncrementMovementActive();
-        BasicAttackStartedEvent?.Invoke(0);
-        basicAttackSmears[0].PerformSmear();
+        BasicAttackStartedEvent?.Invoke(comboCounter);
+        basicAttack.basicAttackSmear.PerformSmear();
+
+        basicAttackComboResetTimer = basicAttack.basicAttackDuration + 0.1f;
+        comboCounter++;
+        if (comboCounter == basicAttacks.Length)
+        {
+            comboCounter = 0;
+            basicAttackComboCooldownTimer = basicAttackComboCooldown;
+        }
+        facing.UpdateFacing();
+        rb.velocity += facing.facingNormalized * basicAttack.basicAttackForwardVelocity;
     }
 }
