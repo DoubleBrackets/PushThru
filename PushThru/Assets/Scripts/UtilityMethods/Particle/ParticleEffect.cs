@@ -9,6 +9,24 @@ public class ParticleEffect : MonoBehaviour
 
     ParticleSystem pSys;
 
+    public bool limitFrameRate = false;
+    public int fixedUpdateInterval = 1;
+    private int counter = 0;
+
+
+    private void FixedUpdate()
+    {
+        if(limitFrameRate && (pSys.isPaused || pSys.isPlaying))
+        {
+            counter++;
+            if(counter == fixedUpdateInterval)
+            {
+                counter = 0;
+                pSys.Simulate(fixedUpdateInterval * Time.fixedDeltaTime,true,false);
+            }
+        }
+    }
+
     void Start()
     {
         pSys = gameObject.GetComponent<ParticleSystem>();
@@ -40,6 +58,7 @@ public class ParticleEffect : MonoBehaviour
     {
         if (_id.CompareTo(particleId) == 0)
         {
+            pSys.Stop();
             pSys.Play();
         }
     }

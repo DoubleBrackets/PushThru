@@ -52,7 +52,7 @@ public class DashVFXScript : MonoBehaviour
 
             for(int c = 0;c <= 5;c++)
             {
-                lineStreak.renderer.SetPosition(c, Vector3.Lerp(startPos,endPos,c/5f) + offset);
+                lineStreak.renderer.SetPosition(c, (Vector3.Lerp(startPos,endPos,c/5f) + offset));
             }
         }
         StartCoroutine(Corout_HideLineStreaks(startPos,endPos,playerRotation));
@@ -61,15 +61,16 @@ public class DashVFXScript : MonoBehaviour
     IEnumerator Corout_HideLineStreaks(Vector3 startPos, Vector3 endPos,Quaternion playerRotation)
     {
         yield return new WaitForSeconds(lineDuration);
-        float interval = lineDuration / 10f;
-        for(int x = 1;x <= 10f;x++)
+        int frameCount = 10;
+        float interval = lineDuration / frameCount;
+        for(int x = 1;x <= frameCount;x++)
         {
             foreach (LineStreak lineStreak in lineRenderers)
             {
                 Vector3 offset = playerRotation * lineStreak.offset;
                 for (int c = 0; c <= 5; c++)
                 {
-                    lineStreak.renderer.SetPosition(c, Vector3.Lerp(Vector3.Lerp(startPos,endPos,x/10f), endPos, c / 5f)+ offset);
+                    lineStreak.renderer.SetPosition(c, (Vector3.Lerp(Vector3.Lerp(startPos,endPos,x/(float)frameCount), endPos, c / 5f)+ offset));
                 }
             }
             yield return new WaitForFixedUpdate();

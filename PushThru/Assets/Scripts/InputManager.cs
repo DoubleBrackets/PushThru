@@ -12,7 +12,8 @@ public class InputManager : MonoBehaviour
     private float inputSoftenedTimer = 0f;
     [HideInInspector]public float inputVectorLastChanged = 0;
     //Mouse
-    public Vector2 mouseDirNormalized;
+    [HideInInspector] public Vector2 mouseDirNormalized;
+    public Transform mouseCenterTarget;
     //Events
     public event System.Action AttackKeyDown;
     public event System.Action AttackKeyUp;
@@ -39,7 +40,11 @@ public class InputManager : MonoBehaviour
         inputVectorPreviousFrame = inputVector;
 
         //Mouse
-        Vector2 screenCenter = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height)/2f;
+        Vector2 screenCenter = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) / 4f;
+        if(mouseCenterTarget)
+            screenCenter = CameraSystem.Main.WorldToScreenPoint(mouseCenterTarget.position);
+        
+             
         Vector2 mouseScreenPos = Input.mousePosition;
         mouseDirNormalized = (mouseScreenPos - screenCenter).normalized;
         //Keybinds

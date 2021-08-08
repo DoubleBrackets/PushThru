@@ -29,4 +29,15 @@ public static class Extensionmethods
     {
         return Mathf.Rad2Deg * Mathf.Atan2(vec.y, vec.x);
     }
+
+    static float lockStep = 0.06f;
+    public static Vector3 RoundToPixel(this Vector3 vec)
+    {
+        return new Vector3(Mathf.FloorToInt(vec.x / lockStep) * lockStep, vec.y, Mathf.FloorToInt(vec.z / lockStep * 0.5f) * lockStep * 2);
+    }
+
+    public static float RoundToIntMultiple(this float val,int roundTo)
+    {
+        return Mathf.RoundToInt(val / roundTo) * roundTo;
+    }
 }

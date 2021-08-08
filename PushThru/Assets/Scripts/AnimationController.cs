@@ -9,27 +9,33 @@ public class AnimationController : MonoBehaviour
     public Rigidbody rb;
     public ForceMovementScript moveScript;
     public InputManager inputManager;
+    public PlayerAttackManager playerAttackManager;
+
+    public GameObject hipSword;
+    public GameObject handSword;
+
+    private void Awake()
+    {
+        playerAttackManager.BasicAttackStartedEvent += PlayBasicAttackAnimation;
+        playerAttackManager.BasicAttackEndedEvent += EndBasicAttackAnimation;
+    }
+
+    private void PlayBasicAttackAnimation(int val)
+    {
+        hipSword.SetActive(false);
+        handSword.SetActive(true);
+        PlayAnimation("BasicAttack" + val);
+    }
+
+    private void EndBasicAttackAnimation(int val)
+    {
+        hipSword.SetActive(true);
+        handSword.SetActive(false);
+    }
 
     private void Update()
     {
         Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
-        float rawAngle = (Mathf.Rad2Deg * Mathf.Atan2(rb.velocity.z/moveScript.zAxisMultiplier, rb.velocity.x));
-        float rawInputAngle = (Mathf.Rad2Deg * Mathf.Atan2(inputManager.inputVectorSoftened.y,inputManager.inputVectorSoftened.x));
-        float dirSign = Mathf.Sign(Mathf.DeltaAngle(rawInputAngle,rawAngle));
-        
-        if(rbVel.magnitude > 0.2f)
-        {
-            float angle;
-            if (inputManager.inputVectorSoftened != Vector2.zero)
-            {
-                angle = inputManager.inputVectorSoftened.Angle();
-            }
-            else
-            {
-                angle = Mathf.RoundToInt(rawAngle / 45) * 45;
-            }
-            rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
-        }
         
         if(rbVel.magnitude > 0.2)
         {
