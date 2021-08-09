@@ -125,6 +125,8 @@ public class PlayerCombatActionManager : MonoBehaviour
         facing.UpdateFacing();
 
         movementScript.IncrementMovementActive();
+        ParticleManager.particleManager.PlayParticle("StarParticles");
+        ParticleManager.particleManager.PlayParticle("AttackDustParticles");
         BlockStartedEvent?.Invoke(dirNormalized);
     }
 
@@ -171,7 +173,10 @@ public class PlayerCombatActionManager : MonoBehaviour
             basicAttackComboCooldownTimer = basicAttackComboCooldown;
         }
         facing.UpdateFacing();
-        rb.velocity += facing.facingNormalized * basicAttack.basicAttackForwardVelocity;
+        Vector3 dashForward = facing.facingNormalized * basicAttack.basicAttackForwardVelocity;
+        dashForward.z *= 1.5f;
+        rb.velocity += dashForward;
+        ParticleManager.particleManager.PlayParticle("AttackDustParticles");
     }
 
     public void StartAction(ActionType type, float time, Vector2 dir)

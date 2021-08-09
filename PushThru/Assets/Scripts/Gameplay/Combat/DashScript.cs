@@ -75,7 +75,7 @@ public class DashScript : MonoBehaviour
     private void PerformDash()
     {
         Vector3 originalPosition = transform.position;
-        targetDir.y *= 2;
+        targetDir.y *= 1.5f;
         Vector3 size = colliderCast.bounds.extents;
         bool hit = Physics.BoxCast(transform.position + colliderCast.center,
             size - new Vector3(0.1f, 0.1f, 0.1f),

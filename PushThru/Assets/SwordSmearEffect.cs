@@ -11,6 +11,8 @@ public class SwordSmearEffect : MonoBehaviour
 	public float showDuration;
 	public float delay;
 
+	public SwordSmearEffect subSmear;
+
 	//used to prevent smears teleporting when parent transform changes mid-effect
 	private Matrix4x4 transformCache;
 
@@ -32,6 +34,10 @@ public class SwordSmearEffect : MonoBehaviour
     {
 		transformCache = transform.localToWorldMatrix;
 		StartCoroutine(Corout_PerformSmear());
+		if(subSmear)
+        {
+			subSmear.PerformSmear();
+        }
     }
 
 	IEnumerator Corout_PerformSmear()
