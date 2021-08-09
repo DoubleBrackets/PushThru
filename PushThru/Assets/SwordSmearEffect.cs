@@ -11,6 +11,9 @@ public class SwordSmearEffect : MonoBehaviour
 	public float showDuration;
 	public float delay;
 
+	//used to prevent smears teleporting when parent transform changes mid-effect
+	private Matrix4x4 transformCache;
+
 	public Vector3[] points;
 
 	[ContextMenu("ResetPoints")]
@@ -27,6 +30,7 @@ public class SwordSmearEffect : MonoBehaviour
 	[ContextMenu("Slash")]
 	public void PerformSmear()
     {
+		transformCache = transform.localToWorldMatrix;
 		StartCoroutine(Corout_PerformSmear());
     }
 
@@ -39,13 +43,14 @@ public class SwordSmearEffect : MonoBehaviour
 
 	IEnumerator Corout_ShowSmear()
     {
+		transformCache = transform.localToWorldMatrix;
 		lineRen.positionCount = steps + 1;
 		for (int c = 0; c <= showFrames; c++)
 		{
 			for (int x = 0; x <= steps; x++)
 			{
 				float t = Mathf.Lerp(0,c / (float)showFrames, x / (float)steps);
-				lineRen.SetPosition(x, GetPointLocal(t));
+				lineRen.SetPosition(x, GetPointUsingCachedTransform(t));
 			}
 			yield return new WaitForFixedUpdate();
 		}
@@ -54,12 +59,13 @@ public class SwordSmearEffect : MonoBehaviour
 	IEnumerator Corout_HideSmear()
     {
 		yield return new WaitForSeconds(showDuration);
-		for(int c = 0;c <= hideFrames;c++)
+		transformCache = transform.localToWorldMatrix;
+		for (int c = 0;c <= hideFrames;c++)
         {
 			for (int x = 0; x <= steps; x++)
 			{
 				float t = Mathf.Lerp(c/(float)hideFrames,1,x / (float)steps);
-				lineRen.SetPosition(x, GetPointLocal(t));
+				lineRen.SetPosition(x, GetPointUsingCachedTransform(t));
 			}
 			yield return new WaitForFixedUpdate();
 		}
@@ -71,6 +77,11 @@ public class SwordSmearEffect : MonoBehaviour
     public Vector3 GetPoint(float t)
 	{
 		return transform.TransformPoint(Bezier.GetPoint(points[0], points[1], points[2], points[3], t));
+	}
+
+	public Vector3 GetPointUsingCachedTransform(float t)
+    {
+		return transformCache.MultiplyPoint(Bezier.GetPoint(points[0], points[1], points[2], points[3], t));
 	}
 
 	public Vector3 GetPointLocal(float t)

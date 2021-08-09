@@ -9,7 +9,8 @@ public class AnimationController : MonoBehaviour
     public Rigidbody rb;
     public ForceMovementScript moveScript;
     public InputManager inputManager;
-    public PlayerAttackManager playerAttackManager;
+    public PlayerCombatActionManager playerAttackManager;
+    public DashScript dashScript;
 
     public GameObject hipSword;
     public GameObject handSword;
@@ -18,7 +19,16 @@ public class AnimationController : MonoBehaviour
     {
         playerAttackManager.BasicAttackStartedEvent += PlayBasicAttackAnimation;
         playerAttackManager.BasicAttackEndedEvent += EndBasicAttackAnimation;
+
+        playerAttackManager.BlockStartedEvent += PlayBlockAnimation;
+        playerAttackManager.BlockEndedEvent += EndBlockAnimation;
+
+        dashScript.DashPerformed += PlayDashAnimation;
         handSword.SetActive(false);
+    }
+    private void PlayDashAnimation()
+    {
+        PlayAnimation("Dash");
     }
 
     private void PlayBasicAttackAnimation(int val)
@@ -34,10 +44,24 @@ public class AnimationController : MonoBehaviour
         handSword.SetActive(false);
     }
 
+    private void PlayBlockAnimation(Vector2 dir)
+    {
+        hipSword.SetActive(false);
+        handSword.SetActive(true);
+        PlayAnimation("Block");
+    }
+
+    private void EndBlockAnimation(Vector2 dir)
+    {
+        hipSword.SetActive(true);
+        handSword.SetActive(false);
+    }
+
+
     private void Update()
     {
         Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
-        SetBool("IsAttacking", playerAttackManager.isAttacking);
+        SetBool("isPerformingAction", playerAttackManager.isPerfomingAction);
         if(rbVel.magnitude > 0.2)
         {
             if(SetBool("isRunning", true))

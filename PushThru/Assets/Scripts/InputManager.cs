@@ -15,8 +15,10 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public Vector2 mouseDirNormalized;
     public Transform mouseCenterTarget;
     //Events
-    public event System.Action AttackKeyDown;
-    public event System.Action AttackKeyUp;
+    public event System.Action<Vector2> AttackKeyDown;
+    public event System.Action<Vector2> AttackKeyUp;
+
+    public event System.Action<Vector2> BlockKeyDown;
 
     public event System.Action DashKeyDown;
     public event System.Action DashKeyUp;
@@ -48,16 +50,21 @@ public class InputManager : MonoBehaviour
         Vector2 mouseScreenPos = Input.mousePosition;
         mouseDirNormalized = (mouseScreenPos - screenCenter).normalized;
         //Keybinds
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
-            AttackKeyDown?.Invoke();
+            AttackKeyDown?.Invoke(mouseDirNormalized);
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            AttackKeyUp?.Invoke();
+            AttackKeyUp?.Invoke(mouseDirNormalized);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButton(1))
+        {
+            BlockKeyDown?.Invoke(mouseDirNormalized);
+        }
+
+        if (Input.GetKey(KeyCode.Space))
         {
             DashKeyDown?.Invoke();
         }

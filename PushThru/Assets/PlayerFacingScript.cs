@@ -6,7 +6,7 @@ public class PlayerFacingScript : MonoBehaviour
 {
     public Rigidbody rb;
     public ForceMovementScript moveScript;
-    public PlayerAttackManager attackManager;
+    public PlayerCombatActionManager attackManager;
     public InputManager inputManager;
 
     private Vector3 _facingNormalized;
@@ -26,9 +26,9 @@ public class PlayerFacingScript : MonoBehaviour
         float rawVelocityAngle = (Mathf.Rad2Deg * Mathf.Atan2(rb.velocity.z / moveScript.zAxisMultiplier, rb.velocity.x));
         float rawInputAngle = (Mathf.Rad2Deg * Mathf.Atan2(inputManager.inputVectorSoftened.y, inputManager.inputVectorSoftened.x));
         float angle = 0;
-        if (attackManager.isAttacking)
+        if (attackManager.isPerfomingAction)
         {
-            angle = Mathf.Rad2Deg * Mathf.Atan2(attackManager.currentAttackDirection.y, attackManager.currentAttackDirection.x);
+            angle = Mathf.Rad2Deg * Mathf.Atan2(attackManager.currentActionDirection.y, attackManager.currentActionDirection.x);
             angle = angle.RoundToIntMultiple(45);
             rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
         }

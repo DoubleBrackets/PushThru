@@ -8,7 +8,7 @@ public class DashScript : MonoBehaviour
     public InputManager inputManager;
     public ForceMovementScript movementScript;
     public BoxCollider colliderCast;
-    public AnimationController animationController;
+    public PlayerCombatActionManager actionManager;
     public Rigidbody rb;
     public DashVFXScript vFXScript;
     //Dash Values
@@ -20,6 +20,8 @@ public class DashScript : MonoBehaviour
     private float cooldownTimer = 0f;
 
     private Vector2 targetDir;
+
+    public event System.Action DashPerformed;
 
     public bool isInRecover
     {
@@ -46,8 +48,12 @@ public class DashScript : MonoBehaviour
 
     private void StartDash()
     {
-        if (cooldownTimer > 0)
+        if (cooldownTimer > 0 || !actionManager.isActionInterruptable(0.05f))
+        {
             return;
+        }
+        actionManager.EndCurrentActionCheckInterruptable();
+        actionManager.ExtendComboResetTimer(recoverTime/2f);
         Vector2 dir = inputManager.inputVector.normalized;
         if(dir == Vector2.zero)
         {
@@ -57,9 +63,11 @@ public class DashScript : MonoBehaviour
         recoverTimer = recoverTime;
         targetDir = dir;
         movementScript.IncrementMovementActive();
-        animationController.PlayAnimation("Dash");
+        DashPerformed?.Invoke();
         PerformDash();
-        OrthoPixelMoveCamera.orthoCam.UpdateTarget(3);
+
+        actionManager.StartNullAction(recoverTime, targetDir);
+        OrthoPixelMoveCamera.orthoCam.UpdateTarget(4);
     }
 
     public LayerMask terrainMask;
