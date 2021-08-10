@@ -15,6 +15,12 @@ public class InputManager : MonoBehaviour
     //Mouse
     [HideInInspector] public Vector2 mouseDirNormalized;
     public Transform mouseCenterTarget;
+
+    //Locks
+    public int movementInputEnabled = 0;
+    public int dashInputEnabled = 0;
+    public int actionInputEnabled = 0;
+
     //Events
     public event System.Action<Vector2> AttackKeyDown;
     public event System.Action<Vector2> AttackKeyUp;
@@ -26,20 +32,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        inputVectorLastChanged += Time.deltaTime;
-        inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        if (inputVector != inputVectorPreviousFrame)
-        {
-            inputSoftenedTimer = 0.04f;
-            inputVectorLastChanged = 0f;
-        }
-        if (inputSoftenedTimer <= 0f)
-        {
-            inputVectorSoftened = inputVector;
-        }
-        else
-            inputSoftenedTimer -= Time.deltaTime;
-        inputVectorPreviousFrame = inputVector;
+        DirectionKeyInput();
+        
 
         //Mouse
         Vector2 screenCenter = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) / 4f;
@@ -50,7 +44,18 @@ public class InputManager : MonoBehaviour
         Vector2 mouseScreenPos = Input.mousePosition;
         mouseDirNormalized = (mouseScreenPos - screenCenter).normalized;
         //Keybinds
-        if(Input.GetMouseButton(0))
+        ActionKeys();
+        DashKey();
+        //Updates values in other scripts
+        movementScript.inputVector = inputVector;
+        facingScript.sourceInputVector = inputVector;
+    }
+
+    private void ActionKeys()
+    {
+        if (actionInputEnabled != 0)
+            return;
+        if (Input.GetMouseButton(0))
         {
             AttackKeyDown?.Invoke(mouseDirNormalized);
         }
@@ -63,7 +68,12 @@ public class InputManager : MonoBehaviour
         {
             BlockKeyDown?.Invoke(mouseDirNormalized);
         }
+    }
 
+    private void DashKey()
+    {
+        if (dashInputEnabled != 0)
+            return;
         if (Input.GetKey(KeyCode.Space))
         {
             DashKeyDown?.Invoke();
@@ -72,9 +82,25 @@ public class InputManager : MonoBehaviour
         {
             DashKeyUp?.Invoke();
         }
+    }
 
-        //Updates values in other scripts
-        movementScript.inputVector = inputVector;
-        facingScript.sourceInputVector = inputVector;
+    private void DirectionKeyInput()
+    {
+        inputVectorLastChanged += Time.deltaTime;
+        inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        if (movementInputEnabled != 0)
+            inputVector = inputVectorPreviousFrame;
+        if (inputVector != inputVectorPreviousFrame)
+        {
+            inputSoftenedTimer = 0.04f;
+            inputVectorLastChanged = 0f;
+        }
+        if (inputSoftenedTimer <= 0f)
+        {
+            inputVectorSoftened = inputVector;
+        }
+        else
+            inputSoftenedTimer -= Time.deltaTime;       
+        inputVectorPreviousFrame = inputVector;
     }
 }

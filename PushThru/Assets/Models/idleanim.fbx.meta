@@ -27,6 +27,12 @@ ModelImporter:
   - first:
       74: -7426410211964726506
     second: Armature|block
+  - first:
+      74: 2545749162911509735
+    second: Armature|character_getup
+  - first:
+      74: 2463867020043483838
+    second: Armature|character_liedown
   externalObjects: {}
   materials:
     materialImportMode: 2

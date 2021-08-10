@@ -12,6 +12,7 @@ public class DialogueTextManager : MonoBehaviour
     public CanvasGroup dialogueGroup;
     public CanvasGroup skipText;
     public TextMeshProUGUI text;
+    public InputManager playerInputManager;
     
 
     private bool isDisplayingMessage;
@@ -54,29 +55,31 @@ public class DialogueTextManager : MonoBehaviour
 
     private void StartDisplaying()
     {
-        StopTime(true);
+        StopInputs(true);
         dialogueGroup.alpha = 1;
         currentCorout = StartCoroutine(Corout_DisplayMessage());
     }
 
     private void StopDisplaying()
     {
-        StopTime(false);
+        StopInputs(false);
         dialogueGroup.alpha = 0;
         isDisplayingMessage = false;
     }
 
-    private void StopTime(bool value)
+    private void StopInputs(bool value)
     {
         if(value)
         {
-            Time.fixedDeltaTime = 100000000f;
-            Time.timeScale = 0.0001f;
+            playerInputManager.dashInputEnabled++;
+            playerInputManager.movementInputEnabled++;
+            playerInputManager.actionInputEnabled++;
         }
         else
         {
-            Time.fixedDeltaTime = TimeUtils.fixedTimeStep;
-            Time.timeScale = 1f;
+            playerInputManager.dashInputEnabled--;
+            playerInputManager.movementInputEnabled--;
+            playerInputManager.actionInputEnabled--;
         }
     }
 

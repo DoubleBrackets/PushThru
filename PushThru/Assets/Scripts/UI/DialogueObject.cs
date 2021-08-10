@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueObject : InteractableObject
 {
     public float interactDistance;
+    [TextArea]
     public string[] text;
     protected override void OnInteract()
     {

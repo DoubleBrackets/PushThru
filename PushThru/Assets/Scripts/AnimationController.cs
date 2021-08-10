@@ -57,6 +57,11 @@ public class AnimationController : MonoBehaviour
         handSword.SetActive(false);
     }
 
+    public void SetHipSword(bool val)
+    {
+        hipSword.SetActive(val);
+    }
+
 
     private void Update()
     {
