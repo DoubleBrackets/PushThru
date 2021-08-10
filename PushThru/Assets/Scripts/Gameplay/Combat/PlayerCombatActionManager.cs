@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PlayerCombatActionManager : MonoBehaviour
+public class PlayerCombatActionManager : CombatActionManager
 {
     [System.Serializable]
     public struct BasicAttackData
@@ -11,6 +11,7 @@ public class PlayerCombatActionManager : MonoBehaviour
         public float basicAttackDuration;
         public SwordSmearEffect basicAttackSmear;
         public float basicAttackForwardVelocity;
+        public AttackCaster caster;
     }
 
     public enum ActionType
@@ -24,18 +25,17 @@ public class PlayerCombatActionManager : MonoBehaviour
     public InputManager inputManager;
     public ForceMovementScript movementScript;
     public Rigidbody rb;
-    public PlayerFacingScript facing;
+    public FacingScript facing;
 
-    public bool isPerfomingAction
+    public override bool IsPerformingAction()
     { 
-        get=> actionDurationTimer > 0;
+        return actionDurationTimer > 0;
     }
 
 
     [Space(10)]
 
     private float actionDurationTimer = 0;
-    [HideInInspector]public Vector2 currentActionDirection;
     private ActionType currentActionType;
 
     private float actionInterruptMargin = 0.1f;
@@ -104,7 +104,7 @@ public class PlayerCombatActionManager : MonoBehaviour
     //Checks if theres an action to interrupt, otherwise do not end action(EndCurrentAction() but intended for public use)
     public void EndCurrentActionCheckInterruptable()
     {
-        if (!isPerfomingAction)
+        if (!IsPerformingAction())
             return;
         EndCurrentAction();
     }
@@ -164,8 +164,12 @@ public class PlayerCombatActionManager : MonoBehaviour
         movementScript.IncrementMovementActive();
         BasicAttackStartedEvent?.Invoke(comboCounter);
         basicAttack.basicAttackSmear.PerformSmear();
-
         basicAttackComboResetTimer = basicAttack.basicAttackDuration + 0.1f;
+
+        //Damage&physics logic
+        Attack attack = new Attack(1, dirNormalized.Vector2To3TopDown(), 15, 0.1f);
+        StartCoroutine(Corout_DoubleCast(basicAttack, attack, basicAttack.basicAttackDuration / 2f, dirNormalized));
+
         comboCounter++;
         if (comboCounter == basicAttacks.Length)
         {
@@ -179,6 +183,18 @@ public class PlayerCombatActionManager : MonoBehaviour
         ParticleManager.particleManager.PlayParticle("AttackDustParticles");
     }
 
+    private IEnumerator Corout_DoubleCast(BasicAttackData basicAttack, Attack attack,float delay,Vector2 dirNormalized)
+    {
+        HashSet<EntityCombatManager> targets1 = basicAttack.caster.CastForCombatManagers(dirNormalized);
+        yield return new WaitForSeconds(delay);
+        HashSet<EntityCombatManager> targets = basicAttack.caster.CastForCombatManagers(dirNormalized);
+        targets.UnionWith(targets1);
+        foreach (EntityCombatManager target in targets)
+        {
+            target.ReceiveAttack(attack);
+            TimeUtils.instance.FreezeTime(0.01f, 0.1f);
+        }
+    }
     public void StartAction(ActionType type, float time, Vector2 dir)
     {
         currentActionType = type;

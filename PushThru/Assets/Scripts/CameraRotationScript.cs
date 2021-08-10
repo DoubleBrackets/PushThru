@@ -17,12 +17,12 @@ public class CameraRotationScript : MonoBehaviour
     void Update()
     {
         
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             targetRotation += 45;
             timer = lerpTime;
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             targetRotation -= 45;
             timer = lerpTime;

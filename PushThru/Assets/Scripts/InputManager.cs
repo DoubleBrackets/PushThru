@@ -5,6 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public ForceMovementScript movementScript;
+    public FacingScript facingScript;
 
     [HideInInspector] public Vector2 inputVector;
     [HideInInspector] public Vector2 inputVectorSoftened;
@@ -27,7 +28,6 @@ public class InputManager : MonoBehaviour
     {
         inputVectorLastChanged += Time.deltaTime;
         inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        movementScript.inputVector = inputVector;
         if (inputVector != inputVectorPreviousFrame)
         {
             inputSoftenedTimer = 0.04f;
@@ -72,5 +72,9 @@ public class InputManager : MonoBehaviour
         {
             DashKeyUp?.Invoke();
         }
+
+        //Updates values in other scripts
+        movementScript.inputVector = inputVector;
+        facingScript.sourceInputVector = inputVector;
     }
 }

@@ -145,10 +145,16 @@ public class ForceMovementScript : MonoBehaviour
         DecrementSlowdownActive();
     }
 
-    public IEnumerator DisableControlAndSlowdown(float slowdownduration, float controlduration)
+    public void DisableControlAndSlowdown(float slowdownduration, float controlduration)
     {
         IncrementMovementActive();
         IncrementSlowdownActive();
+        StartCoroutine(Corout_DisableControlAndSlowdown(slowdownduration,controlduration));
+    }
+
+    private IEnumerator Corout_DisableControlAndSlowdown(float slowdownduration, float controlduration)
+    {
+
         yield return new WaitForSeconds(slowdownduration);
         DecrementSlowdownActive();
         yield return new WaitForSeconds(controlduration - slowdownduration);

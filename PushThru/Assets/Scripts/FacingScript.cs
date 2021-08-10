@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FacingScript : MonoBehaviour
+{
+    public Rigidbody rb;
+    public ForceMovementScript moveScript;
+    public CombatActionManager actionManager;
+    //Vector that facing is determined by
+    public Vector2 sourceInputVector;
+
+    private Vector3 _facingNormalized;
+    public Vector3 facingNormalized
+    {
+        get => _facingNormalized;
+    }
+
+    private void Update()
+    {
+        UpdateFacing();
+    }
+
+    public void UpdateFacing()
+    {
+        Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
+        float rawVelocityAngle = (Mathf.Rad2Deg * Mathf.Atan2(rb.velocity.z / moveScript.zAxisMultiplier, rb.velocity.x));
+        float rawInputAngle = (Mathf.Rad2Deg * Mathf.Atan2(sourceInputVector.y, sourceInputVector.x));
+        float angle = 0;
+        if (actionManager.IsPerformingAction())
+        {
+            angle = Mathf.Rad2Deg * Mathf.Atan2(actionManager.currentActionDirection.y, actionManager.currentActionDirection.x);
+            angle = angle.RoundToIntMultiple(45);
+            rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
+        }
+        else if (rbVel.magnitude > 0.2f)
+        {
+            if (sourceInputVector != Vector2.zero)
+            {
+                angle = sourceInputVector.Angle();
+            }
+            else
+            {
+                angle = rawVelocityAngle.RoundToIntMultiple(45);
+            }
+            rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
+        }
+        _facingNormalized = Quaternion.Euler(0,-angle,0) * Vector3.right;
+    }
+}

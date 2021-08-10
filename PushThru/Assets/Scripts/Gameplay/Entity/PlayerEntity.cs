@@ -12,6 +12,12 @@ public class PlayerEntity : Entity
         {
             PlayerDeath();
         }
+        if(attack.damage > 0)
+        {
+            OverlayEffectsScript.instance.PlayEffect("HurtEffect");
+        }
+        ParticleManager.particleManager.PlayParticle("PlayerHurtParticles");
+        TimeUtils.instance.FreezeTime(0.01f, 0.15f);
     }
 
     private void PlayerDeath()

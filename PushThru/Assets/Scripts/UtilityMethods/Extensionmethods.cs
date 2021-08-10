@@ -20,6 +20,11 @@ public static class Extensionmethods
         return new Vector3(vec.x, 0, vec.y);
     }
 
+    public static Vector2 Vector3To2TopDown(this Vector3 vec)
+    {
+        return new Vector2(vec.x, vec.z);
+    }
+
     public static float YRotationDegrees(this Vector3 vec)
     {
         return Mathf.Rad2Deg*Mathf.Atan2(vec.z, vec.x);

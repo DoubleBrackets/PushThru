@@ -61,8 +61,8 @@ public class AnimationController : MonoBehaviour
     private void Update()
     {
         Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
-        SetBool("isPerformingAction", playerAttackManager.isPerfomingAction);
-        if(rbVel.magnitude > 0.2)
+        SetBool("isPerformingAction", playerAttackManager.IsPerformingAction());
+        if(rbVel.magnitude > 0.5)
         {
             if(SetBool("isRunning", true))
             {
