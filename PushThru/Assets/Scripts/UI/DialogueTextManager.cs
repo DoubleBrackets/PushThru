@@ -19,6 +19,9 @@ public class DialogueTextManager : MonoBehaviour
     private Coroutine currentCorout;
     private bool isWaitingForNext;
 
+    //Interactable objects event
+    public event System.Action interactButtonPressed;
+
     private void Awake()
     {
         instance = this;
@@ -28,7 +31,10 @@ public class DialogueTextManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.E))
         {
-            SkipKeyPressed();
+            if (isDisplayingMessage)
+                SkipKeyPressed();
+            else
+                interactButtonPressed?.Invoke();
         }
     }
     [ContextMenu("Test")]
@@ -48,14 +54,30 @@ public class DialogueTextManager : MonoBehaviour
 
     private void StartDisplaying()
     {
+        StopTime(true);
         dialogueGroup.alpha = 1;
         currentCorout = StartCoroutine(Corout_DisplayMessage());
     }
 
     private void StopDisplaying()
     {
+        StopTime(false);
         dialogueGroup.alpha = 0;
         isDisplayingMessage = false;
+    }
+
+    private void StopTime(bool value)
+    {
+        if(value)
+        {
+            Time.fixedDeltaTime = 100000000f;
+            Time.timeScale = 0.0001f;
+        }
+        else
+        {
+            Time.fixedDeltaTime = TimeUtils.fixedTimeStep;
+            Time.timeScale = 1f;
+        }
     }
 
     private IEnumerator Corout_DisplayMessage()
@@ -68,7 +90,7 @@ public class DialogueTextManager : MonoBehaviour
         {
             current += message[x];
             text.text = current;
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSecondsRealtime(interval);
         }
         isWaitingForNext = true;
         skipText.alpha = 1;
@@ -79,9 +101,14 @@ public class DialogueTextManager : MonoBehaviour
         isWaitingForNext = false;
         skipText.alpha = 0;
         messageQueue.RemoveAt(0);
-        if(messageQueue.Count == 0)
+        if (messageQueue.Count == 0)
         {
             StopDisplaying();
+        }
+        else
+        {
+            StopCoroutine(currentCorout);
+            currentCorout = StartCoroutine(Corout_DisplayMessage());
         }
     }
 

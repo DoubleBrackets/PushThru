@@ -8,15 +8,18 @@ public class TimeUtils : MonoBehaviour
 
     Coroutine freezeTimeCoroutine;
 
+    public static float fixedTimeStep;
+
     private void Awake()
     {
         instance = this;
+        fixedTimeStep = Time.fixedDeltaTime;
     }
     public void FreezeTime(float timescale, float duration)
     {
         Time.timeScale = timescale;
         if (timescale != 0)
-            Time.fixedDeltaTime = 0.02f / timescale;
+            Time.fixedDeltaTime = fixedTimeStep / timescale;
         FreezeTime(timescale, duration, 0);
     }
 
@@ -34,10 +37,10 @@ public class TimeUtils : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Time.timeScale = timescale;
         if (timescale != 0)
-            Time.fixedDeltaTime = 0.02f / timescale;
+            Time.fixedDeltaTime = fixedTimeStep / timescale;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = 1;
-        Time.fixedDeltaTime = 0.02f;
+        Time.fixedDeltaTime = fixedTimeStep;
         freezeTimeCoroutine = null;
     }
 

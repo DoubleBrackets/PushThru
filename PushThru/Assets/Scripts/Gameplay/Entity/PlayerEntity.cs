@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerEntity : Entity
 {
-
+    public static PlayerEntity player;
+    private void Awake()
+    {
+        player = this;
+    }
     public override void TakeDamage(Attack attack)
     {
         currentHealth -= attack.damage;
