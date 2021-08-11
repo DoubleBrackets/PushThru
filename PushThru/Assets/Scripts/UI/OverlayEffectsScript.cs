@@ -22,7 +22,7 @@ public class OverlayEffectsScript : MonoBehaviour
     }
 
     float shown = 1;
-    float hidden = 1.2f;
+    float hidden = 1.4f;
     public void ShowCutsceneBars()
     {
         StartCoroutine(Corout_MoveCutsceneBars(hidden,shown));
@@ -35,25 +35,34 @@ public class OverlayEffectsScript : MonoBehaviour
 
     private IEnumerator Corout_MoveCutsceneBars(float start, float end)
     {
-        for(int x = 0;x <= 20;x++)
+        for(int x = 0;x <= 40;x++)
         {
-            float t = (float)x / 20;
+            float t = (float)x / 40;
             Vector3 cScale = cutsceneBars.localScale;
             cScale.y = Mathf.Lerp(start, end, t);
             cutsceneBars.localScale = cScale;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
     public void StartCutScene(GameObject cameraTarget)
     {
         OrthoPixelMoveCamera.orthoCam.target = cameraTarget.transform;
+        OrthoPixelMoveCamera.orthoCam.UpdateTarget(0f);
         ShowCutsceneBars();
     }
+
+    public void MoveCutsceneCamera(GameObject newTarget)
+    {
+        OrthoPixelMoveCamera.orthoCam.target = newTarget.transform;
+        OrthoPixelMoveCamera.orthoCam.UpdateTarget(0f);
+    }
+
     public void EndCutScene()
     {
         HideCutsceneBars();
         OrthoPixelMoveCamera.orthoCam.target = PlayerEntity.player.gameObject.transform;
+        OrthoPixelMoveCamera.orthoCam.UpdateTarget(0f);
     }
 
     public void FadeToBlack()

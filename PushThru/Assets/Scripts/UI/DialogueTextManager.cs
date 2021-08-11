@@ -15,7 +15,12 @@ public class DialogueTextManager : MonoBehaviour
     public InputManager playerInputManager;
 
 
-    private bool isDisplayingMessage;
+    private bool _isDisplayingMessage;
+
+    public bool isDisplayingMessage
+    {
+        get => _isDisplayingMessage;
+    }
 
     private Coroutine currentCorout;
     private bool isWaitingForNext;
@@ -31,7 +36,7 @@ public class DialogueTextManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (isDisplayingMessage)
+            if (_isDisplayingMessage)
                 SkipKeyPressed();
             else
                 interactButtonPressed?.Invoke();
@@ -45,9 +50,9 @@ public class DialogueTextManager : MonoBehaviour
     public void QueueMessage(string message)
     {
         messageQueue.Add(message);
-        if (!isDisplayingMessage)
+        if (!_isDisplayingMessage)
         {
-            isDisplayingMessage = true;
+            _isDisplayingMessage = true;
             StartDisplaying();
         }
     }
@@ -63,7 +68,7 @@ public class DialogueTextManager : MonoBehaviour
     {
         StopInputs(false);
         dialogueGroup.alpha = 0;
-        isDisplayingMessage = false;
+        _isDisplayingMessage = false;
     }
 
     private void StopInputs(bool value)
@@ -129,4 +134,5 @@ public class DialogueTextManager : MonoBehaviour
             FastForwardText();
         }
     }
+
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerEntity : Entity
 {
     public static PlayerEntity player;
+
+    public GameObject[] deathToRemove;
+
     private void Awake()
     {
         player = this;
@@ -14,6 +17,7 @@ public class PlayerEntity : Entity
         if (currentHealth <= 0)
             return;
         currentHealth -= attack.damage;
+        InvokeHealthChanged(currentHealth);
         if(currentHealth <= 0)
         {
             PlayerDeath();
@@ -29,6 +33,18 @@ public class PlayerEntity : Entity
     private void PlayerDeath()
     {
         PlayerPrefs.SetInt("PencilCount", PlayerPrefs.GetInt("PencilCount", 1) + 1);
-        SceneChanger.instance.ChangeScenes("Start");
+        InputManager.instance.IncrementAllInputEnabled();
+        ParticleManager.particleManager.PlayParticle("PlayerDeathParticles");
+        foreach(GameObject g in deathToRemove)
+        {
+            g.SetActive(false);
+        }
+        SceneChanger.instance.ChangeScenes("Start",2.5f);
+    }
+
+    [ContextMenu("Testdamage")]
+    public void Test()
+    {
+        TakeDamage(new Attack(1, Vector3.zero));
     }
 }

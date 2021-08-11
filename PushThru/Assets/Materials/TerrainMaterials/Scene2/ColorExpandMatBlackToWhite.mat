@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PixelDitherMatUnlitShadowHairTex 1
-  m_Shader: {fileID: -6465566751694194690, guid: bb415891f1f33854c89b4c751e0d9c1d,
+  m_Name: ColorExpandMatBlackToWhite
+  m_Shader: {fileID: -6465566751694194690, guid: 29163987152c9f24fb3b7bd4f842a022,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTEx:
-        m_Texture: {fileID: 2800000, guid: bf69ecf05d173284d9a25aab51190e04, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -96,12 +96,13 @@ Material:
     m_Floats:
     - LIGHTMAP: 0
     - Vector1_296805d31b2049d380e67bccbdad28e8: 0
+    - Vector1_31efa6af0f7f499f9316dded741c0d47: 0
     - Vector1_55e6e9c8d16746a28d67af79828cc224: 0
-    - Vector1_716516503ca942d99afff12ac7efe8cc: 0.1
+    - Vector1_716516503ca942d99afff12ac7efe8cc: 0
     - Vector1_7712c5cd22874726acf36da6cac4f00c: 0.99
-    - Vector1_a11ffbdcd2994207a2720c08bfcb5862: 0.3
-    - Vector1_dad4b8e83eed478089cf631dc69531d3: 1
-    - Vector1_e4fc13f0d2f74e31be35747b95e396f0: 0.7
+    - Vector1_a11ffbdcd2994207a2720c08bfcb5862: 0.75
+    - Vector1_dad4b8e83eed478089cf631dc69531d3: 3
+    - Vector1_e4fc13f0d2f74e31be35747b95e396f0: 0.5
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -113,6 +114,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Distance: 100000
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -134,7 +136,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Vector2_4b7e63ec758047448f099b8e9e9c6332: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_4b7e63ec758047448f099b8e9e9c6332: {r: 0, g: 0, b: 0, a: 0}
+    - Vector3_2a4cbd4570a1423e9975ab924d885c3e: {r: -2, g: 0, b: 42, a: 0}
     - Vector3_db1a8177cb794e87ad8395864cf63c19: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CenterPosition: {r: 0, g: 0, b: 0, a: 0}
@@ -142,7 +145,6 @@ Material:
     - _ColorA: {r: 0, g: 0.08398199, b: 1, a: 1}
     - _ColorB: {r: 0, g: 1, b: 0.72214794, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlobalPosition: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _StartOffset: {r: 0, g: 0, b: 0, a: 0}
     - _pixelateOffset: {r: 0, g: 0, b: 0, a: 0}

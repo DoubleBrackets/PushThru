@@ -13,11 +13,15 @@ public class SceneChanger : MonoBehaviour
 
     public void ChangeScenes(string scene)
     {
-        StartCoroutine(Corout_ChangeScenes(scene));
+        ChangeScenes(scene, 0);
     }
-
-    private IEnumerator Corout_ChangeScenes(string scene)
+    public void ChangeScenes(string scene,float delay)
     {
+        StartCoroutine(Corout_ChangeScenes(scene,delay));
+    }
+    private IEnumerator Corout_ChangeScenes(string scene,float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
         OverlayEffectsScript.instance.FadeToBlack();
         yield return new WaitForSecondsRealtime(2f);
         SceneManager.LoadScene(scene);

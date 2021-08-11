@@ -10,10 +10,10 @@ public class FacingScript : MonoBehaviour
     //Vector that facing is determined by
     public Vector2 sourceInputVector;
 
-    private Vector3 _facingNormalized;
-    public Vector3 facingNormalized
+    private Vector3 _facingVectorNormalized;
+    public Vector3 facingVectorNormalized
     {
-        get => _facingNormalized;
+        get => _facingVectorNormalized;
     }
 
     private void Update()
@@ -33,7 +33,7 @@ public class FacingScript : MonoBehaviour
             angle = angle.RoundToIntMultiple(45);
             rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
         }
-        else if (rbVel.magnitude > 0.2f)
+        else if (rbVel.Vector2To3TopDown().magnitude > 0.2f)
         {
             if (sourceInputVector != Vector2.zero)
             {
@@ -45,6 +45,6 @@ public class FacingScript : MonoBehaviour
             }
             rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
         }
-        _facingNormalized = Quaternion.Euler(0,-angle,0) * Vector3.right;
+        _facingVectorNormalized = Quaternion.Euler(0,-angle,0) * Vector3.right;
     }
 }

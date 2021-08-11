@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public static InputManager instance;
     public ForceMovementScript movementScript;
     public FacingScript facingScript;
 
@@ -29,6 +30,11 @@ public class InputManager : MonoBehaviour
 
     public event System.Action DashKeyDown;
     public event System.Action DashKeyUp;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Update()
     {

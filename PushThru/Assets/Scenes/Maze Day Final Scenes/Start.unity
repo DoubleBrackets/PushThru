@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44300425, g: 0.49219704, b: 0.5719261, a: 1}
+  m_IndirectSpecularColor: {r: 0.4430049, g: 0.49219412, b: 0.5719225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1594,7 +1594,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5539,7 +5539,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21740
+  m_Name: pb_Mesh198436
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6090,7 +6090,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167274838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100, y: 14.5, z: 100}
+  m_LocalPosition: {x: 100, y: 19, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 853009098}
@@ -6260,7 +6260,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 17
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -11958,7 +11958,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21678
+  m_Name: pb_Mesh198364
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17175,7 +17175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70522d985e8454b4a9b7edcb03ac9a5f, type: 2}
+  - {fileID: 2100000, guid: 51d35db68ac36f74b97cd4a6516aa686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22737,7 +22737,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21326
+  m_Name: pb_Mesh197964
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23035,6 +23035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactDistance: 4
   removeOnInteract: 1
+  disableOnInteract: 0
   interactEvent:
     m_PersistentCalls:
       m_Calls:
@@ -23076,7 +23077,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660638076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.84, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 684743091}
@@ -23915,7 +23916,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -27908,7 +27909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2c1c00081a61842aa3e9907cb1a544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 6.64
+  interactDistance: 10
   text:
   - A bell tower looms above
   - "The poles look very. . . \n                                         \nWhackable."
@@ -29249,7 +29250,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -33348,7 +33349,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70522d985e8454b4a9b7edcb03ac9a5f, type: 2}
+  - {fileID: 2100000, guid: 51d35db68ac36f74b97cd4a6516aa686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -39098,13 +39099,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901438745}
-  m_LocalRotation: {x: 0.3535534, y: -0.61237246, z: 0.3535534, w: 0.61237246}
+  m_LocalRotation: {x: 0.19134171, y: -0.8001032, z: 0.46193978, w: 0.33141357}
   m_LocalPosition: {x: 0, y: 3, z: 58.239998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 60, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: -135, z: 0}
 --- !u!1 &933044623
 GameObject:
   m_ObjectHideFlags: 0
@@ -39170,7 +39171,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70522d985e8454b4a9b7edcb03ac9a5f, type: 2}
+  - {fileID: 2100000, guid: 51d35db68ac36f74b97cd4a6516aa686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -40353,7 +40354,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999455619}
   m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 101.77, y: 0, z: 99.951}
+  m_LocalPosition: {x: 102.01, y: 1.118, z: 99.951}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 757536965}
@@ -40372,7 +40373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2c1c00081a61842aa3e9907cb1a544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactDistance: 1.92
+  interactDistance: 1.4
   text:
   - You count the pencils.
   - "The number seems a little high. . . \nYou're sure  you counted correctly though."
@@ -41144,6 +41145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactDistance: 2.4
   removeOnInteract: 1
+  disableOnInteract: 0
   interactEvent:
     m_PersistentCalls:
       m_Calls:
@@ -41590,7 +41592,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70522d985e8454b4a9b7edcb03ac9a5f, type: 2}
+  - {fileID: 2100000, guid: 51d35db68ac36f74b97cd4a6516aa686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -42336,7 +42338,6 @@ GameObject:
   - component: {fileID: 1287888607}
   - component: {fileID: 1287888606}
   - component: {fileID: 1287888605}
-  - component: {fileID: 1287888608}
   m_Layer: 8
   m_Name: Hover1 (2)
   m_TagString: Untagged
@@ -42352,7 +42353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287888603}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 109.1, y: -83.1, z: 201.1}
+  m_LocalPosition: {x: 129.7, y: -98.9, z: 201.1}
   m_LocalScale: {x: 2, y: 100, z: 2}
   m_Children: []
   m_Father: {fileID: 1942683224}
@@ -42420,19 +42421,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287888603}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1287888608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287888603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9753abf728fd4c4cb82aaf285ffa5d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ratios: {x: 0.9, y: 0, z: 0}
 --- !u!1 &1323525579
 GameObject:
   m_ObjectHideFlags: 0
@@ -42635,7 +42623,6 @@ GameObject:
   - component: {fileID: 1344571680}
   - component: {fileID: 1344571679}
   - component: {fileID: 1344571678}
-  - component: {fileID: 1344571681}
   m_Layer: 8
   m_Name: Hover1
   m_TagString: Untagged
@@ -42651,7 +42638,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344571676}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 91.6, y: -68.3, z: 139.2}
+  m_LocalPosition: {x: 119, y: -66.9, z: 135.4}
   m_LocalScale: {x: 1, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 1942683224}
@@ -42719,19 +42706,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344571676}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1344571681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344571676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9753abf728fd4c4cb82aaf285ffa5d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ratios: {x: 0.9, y: 0, z: 0}
 --- !u!1 &1357771706
 GameObject:
   m_ObjectHideFlags: 0
@@ -43043,7 +43017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378592146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.6, z: 0}
+  m_LocalPosition: {x: 0.487, y: 2.617, z: -0.487}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1044229831}
@@ -43882,7 +43856,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -52873,7 +52847,6 @@ GameObject:
   - component: {fileID: 1406603774}
   - component: {fileID: 1406603773}
   - component: {fileID: 1406603772}
-  - component: {fileID: 1406603775}
   m_Layer: 8
   m_Name: Hover1 (1)
   m_TagString: Untagged
@@ -52889,7 +52862,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406603770}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 118.799995, y: -68.3, z: 147.8}
+  m_LocalPosition: {x: 139.4, y: -84.100006, z: 147.8}
   m_LocalScale: {x: 1, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 1942683224}
@@ -52957,19 +52930,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406603770}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1406603775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406603770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9753abf728fd4c4cb82aaf285ffa5d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ratios: {x: 0.9, y: 0, z: 0}
 --- !u!1 &1415360023
 GameObject:
   m_ObjectHideFlags: 0
@@ -60536,7 +60496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705063502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 228.9, y: -50, z: 210.8}
+  m_LocalPosition: {x: 228.9, y: -50, z: 211.7}
   m_LocalScale: {x: 15, y: 100, z: 20}
   m_Children: []
   m_Father: {fileID: 605844477}
@@ -61868,6 +61828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactDistance: 3
   removeOnInteract: 1
+  disableOnInteract: 0
   interactEvent:
     m_PersistentCalls:
       m_Calls:
@@ -61880,7 +61841,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Start
+          m_StringArgument: Final
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1828539728
@@ -65042,7 +65003,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70522d985e8454b4a9b7edcb03ac9a5f, type: 2}
+  - {fileID: 2100000, guid: 51d35db68ac36f74b97cd4a6516aa686, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

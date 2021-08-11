@@ -47,7 +47,7 @@ public class Level1Director : MonoBehaviour
     #region wakeup
     private IEnumerator Corout_StartingTextPrompt()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(12f);
         DialogueTextManager.instance.QueueMessage("You open your eyes.");
         readyToGetUp = true;
     }
@@ -62,7 +62,7 @@ public class Level1Director : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         DialogueTextManager.instance.QueueMessage("This place looks familiar           \n                          \n but something's changed . . .");
-        DialogueTextManager.instance.QueueMessage("\n            [WASD] to move\n[E] to interact with glowing objects");
+        DialogueTextManager.instance.QueueMessage("\n            [WASD] to move\n[E] to interact with Yellow Glowing Objects");
         playerInputManager.movementInputEnabled--;
     }
 

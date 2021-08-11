@@ -6,6 +6,7 @@ public class InteractableObjectEvent : InteractableObject
 {
     public float interactDistance;
     public bool removeOnInteract;
+    public bool disableOnInteract;
 
     public UnityEvent interactEvent;
     protected override void OnInteract()
@@ -17,6 +18,8 @@ public class InteractableObjectEvent : InteractableObject
             interactEvent?.Invoke();
             if (removeOnInteract)
                 Destroy(gameObject);
+            if (disableOnInteract)
+                DisableInteract();
         }
     }
 }

@@ -11,6 +11,7 @@ public class ShadowBroEntity : Entity
         if (currentHealth <= 0)
             return;
         currentHealth -= attack.damage;
+        InvokeHealthChanged(currentHealth);
         if(currentHealth <= 0)
         {
             ShadowBroDeath();
@@ -23,6 +24,7 @@ public class ShadowBroEntity : Entity
 
     private void ShadowBroDeath()
     {
-        print("shadow bro died");
+        Level2Director.instance.EnemyFinishingAttack();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
 }

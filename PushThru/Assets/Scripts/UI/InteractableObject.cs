@@ -14,6 +14,10 @@ public abstract class InteractableObject : MonoBehaviour
         DialogueTextManager.instance.interactButtonPressed -= OnInteract;
     }
 
+    public void DisableInteract()
+    {
+        DialogueTextManager.instance.interactButtonPressed -= OnInteract;
+    }
     protected abstract void OnInteract();
 
 }

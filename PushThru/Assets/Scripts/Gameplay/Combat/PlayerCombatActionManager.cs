@@ -177,7 +177,7 @@ public class PlayerCombatActionManager : CombatActionManager
             basicAttackComboCooldownTimer = basicAttackComboCooldown;
         }
         facing.UpdateFacing();
-        Vector3 dashForward = facing.facingNormalized * basicAttack.basicAttackForwardVelocity;
+        Vector3 dashForward = facing.facingVectorNormalized * basicAttack.basicAttackForwardVelocity;
         dashForward.z *= 1.5f;
         rb.velocity += dashForward;
         ParticleManager.particleManager.PlayParticle("AttackDustParticles");
