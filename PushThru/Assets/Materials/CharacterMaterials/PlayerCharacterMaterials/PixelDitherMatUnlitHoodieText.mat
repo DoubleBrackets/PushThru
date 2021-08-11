@@ -95,7 +95,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - LIGHTMAP: 0
-    - Vector1_296805d31b2049d380e67bccbdad28e8: 0
+    - Vector1_296805d31b2049d380e67bccbdad28e8: -0.02
     - Vector1_55e6e9c8d16746a28d67af79828cc224: 0.5
     - Vector1_716516503ca942d99afff12ac7efe8cc: 0.15
     - Vector1_7712c5cd22874726acf36da6cac4f00c: 0.55

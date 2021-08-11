@@ -89,7 +89,7 @@ public class InputManager : MonoBehaviour
         inputVectorLastChanged += Time.deltaTime;
         inputVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         if (movementInputEnabled != 0)
-            inputVector = inputVectorPreviousFrame;
+            inputVector = Vector2.zero;
         if (inputVector != inputVectorPreviousFrame)
         {
             inputSoftenedTimer = 0.04f;
@@ -102,5 +102,18 @@ public class InputManager : MonoBehaviour
         else
             inputSoftenedTimer -= Time.deltaTime;       
         inputVectorPreviousFrame = inputVector;
+    }
+
+    public void IncrementAllInputEnabled()
+    {
+        dashInputEnabled++;
+        movementInputEnabled++;
+        actionInputEnabled++;
+    }
+    public void DecrementAllInputEnabled()
+    {
+        dashInputEnabled--;
+        movementInputEnabled--;
+        actionInputEnabled--;
     }
 }

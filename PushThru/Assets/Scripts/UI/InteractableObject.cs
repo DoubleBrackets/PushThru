@@ -9,6 +9,11 @@ public abstract class InteractableObject : MonoBehaviour
         DialogueTextManager.instance.interactButtonPressed += OnInteract;
     }
 
+    private void OnDestroy()
+    {
+        DialogueTextManager.instance.interactButtonPressed -= OnInteract;
+    }
+
     protected abstract void OnInteract();
 
 }

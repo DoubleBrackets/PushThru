@@ -13,13 +13,12 @@ public class DialogueTextManager : MonoBehaviour
     public CanvasGroup skipText;
     public TextMeshProUGUI text;
     public InputManager playerInputManager;
-    
+
 
     private bool isDisplayingMessage;
 
     private Coroutine currentCorout;
     private bool isWaitingForNext;
-
     //Interactable objects event
     public event System.Action interactButtonPressed;
 
@@ -30,7 +29,7 @@ public class DialogueTextManager : MonoBehaviour
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (isDisplayingMessage)
                 SkipKeyPressed();
@@ -46,7 +45,7 @@ public class DialogueTextManager : MonoBehaviour
     public void QueueMessage(string message)
     {
         messageQueue.Add(message);
-        if(!isDisplayingMessage)
+        if (!isDisplayingMessage)
         {
             isDisplayingMessage = true;
             StartDisplaying();
@@ -69,17 +68,13 @@ public class DialogueTextManager : MonoBehaviour
 
     private void StopInputs(bool value)
     {
-        if(value)
+        if (value)
         {
-            playerInputManager.dashInputEnabled++;
-            playerInputManager.movementInputEnabled++;
-            playerInputManager.actionInputEnabled++;
+            playerInputManager.IncrementAllInputEnabled();
         }
         else
         {
-            playerInputManager.dashInputEnabled--;
-            playerInputManager.movementInputEnabled--;
-            playerInputManager.actionInputEnabled--;
+            playerInputManager.DecrementAllInputEnabled();
         }
     }
 
@@ -89,7 +84,7 @@ public class DialogueTextManager : MonoBehaviour
         int length = message.Length;
         string current = "";
         float interval = 0.05f;
-        for(int x = 0; x < length;x++)
+        for (int x = 0; x < length; x++)
         {
             current += message[x];
             text.text = current;
@@ -125,7 +120,7 @@ public class DialogueTextManager : MonoBehaviour
 
     private void SkipKeyPressed()
     {
-        if(isWaitingForNext)
+        if (isWaitingForNext)
         {
             MoveToNext();
         }

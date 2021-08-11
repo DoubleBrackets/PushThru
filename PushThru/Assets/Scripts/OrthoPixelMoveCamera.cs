@@ -23,6 +23,7 @@ public class OrthoPixelMoveCamera : MonoBehaviour
     public Transform target;
 
     private Vector3 currentPosition;
+    private Vector3 prevPosition;
 
     public Vector3 currentPixelOffset;
 
@@ -39,7 +40,10 @@ public class OrthoPixelMoveCamera : MonoBehaviour
         offset = transform.localPosition;
         offset.y = 0;
         currentPosition = transform.position;
+        prevPosition = transform.position;
     }
+
+    public event System.Action<Vector3> OrthoCamMove;
 
     void FixedUpdate()
     {
@@ -87,6 +91,8 @@ public class OrthoPixelMoveCamera : MonoBehaviour
             //Lock
             transform.position = new Vector3(Mathf.FloorToInt(currentPosition.x / lockStep) * lockStep, currentPosition.y, Mathf.FloorToInt(currentPosition.z / lockStep * 0.5f) * lockStep * 2);
             currentPixelOffset = currentPosition - transform.position;
+            OrthoCamMove?.Invoke(transform.position - prevPosition);
+            prevPosition = transform.position;
         }     
     }
 
@@ -109,6 +115,8 @@ public class OrthoPixelMoveCamera : MonoBehaviour
             //Lock
             transform.position = new Vector3(Mathf.FloorToInt(currentPosition.x / lockStep) * lockStep, currentPosition.y, Mathf.FloorToInt(currentPosition.z / lockStep * 0.5f) * lockStep * 2);
             currentPixelOffset = currentPosition - transform.position;
+            OrthoCamMove?.Invoke(transform.position - prevPosition);
+            prevPosition = transform.position;
         }
     }
     public void UpdateTarget()

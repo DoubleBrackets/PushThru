@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PixelDitherMatUnlit
+  m_Name: FloormatWhite
   m_Shader: {fileID: -6465566751694194690, guid: 9216818c72ea73246b623f9c771633a6,
     type: 3}
   m_ShaderKeywords: 
@@ -100,7 +100,7 @@ Material:
     - Vector1_716516503ca942d99afff12ac7efe8cc: 0
     - Vector1_7712c5cd22874726acf36da6cac4f00c: 0.99
     - Vector1_a11ffbdcd2994207a2720c08bfcb5862: 0.75
-    - Vector1_dad4b8e83eed478089cf631dc69531d3: 2
+    - Vector1_dad4b8e83eed478089cf631dc69531d3: 1
     - Vector1_e4fc13f0d2f74e31be35747b95e396f0: 0.5
     - _AlphaClip: 0
     - _Blend: 0
@@ -135,13 +135,14 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Vector2_4b7e63ec758047448f099b8e9e9c6332: {r: 0, g: 0, b: 0, a: 0}
-    - Vector3_db1a8177cb794e87ad8395864cf63c19: {r: 1, g: 0, b: 0, a: 0}
+    - Vector3_db1a8177cb794e87ad8395864cf63c19: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CenterPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.754717, g: 0.62119365, b: 0.59451765, a: 1}
+    - _Color: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
     - _ColorA: {r: 0, g: 0.08398199, b: 1, a: 1}
     - _ColorB: {r: 0, g: 1, b: 0.72214794, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _StartOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _pixelateOffset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

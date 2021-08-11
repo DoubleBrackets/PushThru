@@ -11,6 +11,8 @@ public class PlayerEntity : Entity
     }
     public override void TakeDamage(Attack attack)
     {
+        if (currentHealth <= 0)
+            return;
         currentHealth -= attack.damage;
         if(currentHealth <= 0)
         {
@@ -26,6 +28,7 @@ public class PlayerEntity : Entity
 
     private void PlayerDeath()
     {
-        print("player ded");
+        PlayerPrefs.SetInt("PencilCount", PlayerPrefs.GetInt("PencilCount", 1) + 1);
+        SceneChanger.instance.ChangeScenes("Start");
     }
 }

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class ShadowBroEntity : Entity
 
     public override void TakeDamage(Attack attack)
     {
+        if (currentHealth <= 0)
+            return;
         currentHealth -= attack.damage;
         if(currentHealth <= 0)
         {
