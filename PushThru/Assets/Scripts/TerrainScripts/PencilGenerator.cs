@@ -24,6 +24,14 @@ public class PencilGenerator : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            PlayerPrefs.SetInt("PencilCount", 1);
+        }
+    }
+
     private void GeneratePencils(int count)
     {
         float angleRange = 30f;

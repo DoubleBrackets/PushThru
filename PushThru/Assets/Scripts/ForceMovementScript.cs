@@ -72,30 +72,21 @@ public class ForceMovementScript : MonoBehaviour
     {
         //Horizontal movement
         Vector2 inputVector = this.inputVector;
+        inputVector.y *= 2;
+        inputVector = inputVector.normalized;
         //applies z multiplier
-        float multipliers = 1;
-        if(inputVector.x != 0 && inputVector.y != 0)
-        {
-            //diagonal multiplier
-            multipliers *= diagonalMultiplier;
-        }
-
-        inputVector.y *= zAxisMultiplier;
-        inputVector *= multipliers;
+        Vector2 axisMultiplier = inputVector.GetOrthoAxisMultipliers(0.5f);
 
         bool useXForce = false, useZForce = false;
         if (movementActive)
         {
-            float xVelStep = fixedAccelMagnitude * inputVector.x;
-            float zVelStep = fixedAccelMagnitude * inputVector.y;
+            float xVelStep = fixedAccelMagnitude * inputVector.x * axisMultiplier.y;
+            float zVelStep = fixedAccelMagnitude * inputVector.y * axisMultiplier.y;
             float zVelAfterForce = zVelocity + zVelStep;
             float xVelAfterForce = xVelocity + xVelStep;
-            Vector2 unscaledVelAfterForce = new Vector2(xVelAfterForce, zVelAfterForce/zAxisMultiplier);
-            Vector2 scaledVelocity = velocity;
-            scaledVelocity.y /= zAxisMultiplier;
-            scaledVelocity /= multipliers;
-            bool velOverLimit = scaledVelocity.magnitude > currentMaxMoveSpeed + movementBonus;
-            bool forceWithinLimit = unscaledVelAfterForce.magnitude <= currentMaxMoveSpeed + movementBonus && !velOverLimit;
+            Vector2 velAfterForce = new Vector2(xVelAfterForce, zVelAfterForce);
+            bool velOverLimit = velocity.magnitude > (currentMaxMoveSpeed + movementBonus) * axisMultiplier.y;
+            bool forceWithinLimit = velAfterForce.magnitude <= (currentMaxMoveSpeed + movementBonus)*axisMultiplier.y && !velOverLimit;
             //force goes over limit or current speed is over but force is directed in opposite direction, or force does not exceed limit, apply force
             if (xVelStep != 0 && (Mathf.Sign(xVelocity) != Mathf.Sign(xVelStep) || forceWithinLimit))
             {
@@ -111,12 +102,12 @@ public class ForceMovementScript : MonoBehaviour
             {
                 if (verticalInput != 0 && !useZForce)
                 {
-                    zVelocity = (inputVector.y * (currentMaxMoveSpeed + movementBonus));
+                    zVelocity = (inputVector.y * (currentMaxMoveSpeed + movementBonus)) * axisMultiplier.y;
                     useZForce = true;
                 }
                 if (horizontalInput != 0 && !useXForce)
                 {
-                    xVelocity = (inputVector.x * (currentMaxMoveSpeed + movementBonus));
+                    xVelocity = (inputVector.x * (currentMaxMoveSpeed + movementBonus)) * axisMultiplier.y;
                     useXForce = true;
                 }
 

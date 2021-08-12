@@ -34,6 +34,7 @@ public class ParticleEffect : MonoBehaviour
         ParticleManager.particleManager.playParticleEvent += Play;
         ParticleManager.particleManager.stopParticleEvent += Stop;
         ParticleManager.particleManager.setParticleArcEvent += SetArc;
+        ParticleManager.particleManager.setParticlePositionEvent += SetPosition;
     }
 
 
@@ -77,6 +78,14 @@ public class ParticleEffect : MonoBehaviour
         {
             var shape = pSys.shape;
             shape.arc = arc;
+        }
+    }
+
+    void SetPosition(string _id, Vector3 pos)
+    {
+        if (_id.CompareTo(particleId) == 0)
+        {
+            transform.position = pos;
         }
     }
 

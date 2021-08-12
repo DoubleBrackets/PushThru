@@ -45,4 +45,12 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
+    public event Action<String, Vector3> setParticlePositionEvent;
+    public void SetParticlePosition(string _id, Vector3 val)
+    {
+        if (setParticleActiveEvent != null)
+        {
+            setParticlePositionEvent(_id, val);
+        }
+    }
 }

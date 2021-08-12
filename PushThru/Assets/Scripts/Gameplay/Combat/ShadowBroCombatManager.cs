@@ -34,14 +34,15 @@ public class ShadowBroCombatManager : EntityCombatManager
         Vector3 knockback = attack.direction * attack.kbVel;
         knockback.z *= 1.5f;
         movementScript.DisableControlAndSlowdown(attack.disableDuration, attack.disableDuration);
-        if (!isBlocking)
+        float dotProd = Vector2.Dot(blockingDir, attack.direction.Vector3To2TopDown().normalized);
+        if (isBlocking && dotProd <= 0)
         {
             rb.velocity += knockback;
-            shadowBroEntity.TakeDamage(attack);
         }
         else
         {
             rb.velocity += knockback;
+            shadowBroEntity.TakeDamage(attack);
         }
     }
 }

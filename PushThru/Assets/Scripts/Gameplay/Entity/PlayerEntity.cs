@@ -8,10 +8,13 @@ public class PlayerEntity : Entity
 
     public GameObject[] deathToRemove;
 
+    public string deathScene;
+
     private void Awake()
     {
         player = this;
     }
+
     public override void TakeDamage(Attack attack)
     {
         if (currentHealth <= 0)
@@ -25,21 +28,24 @@ public class PlayerEntity : Entity
         if(attack.damage > 0)
         {
             OverlayEffectsScript.instance.PlayEffect("HurtEffect");
+            if(currentHealth > 0)
+                ParticleManager.particleManager.PlayParticle("PlayerHurtParticles");
         }
-        ParticleManager.particleManager.PlayParticle("PlayerHurtParticles");
         TimeUtils.instance.FreezeTime(0.01f, 0.15f);
     }
 
     private void PlayerDeath()
     {
-        PlayerPrefs.SetInt("PencilCount", PlayerPrefs.GetInt("PencilCount", 1) + 1);
         InputManager.instance.IncrementAllInputEnabled();
+        ShadowBroEnemyAI ai = FindObjectOfType<ShadowBroEnemyAI>();
+        if(ai)
+            ai.enabled = false;
         ParticleManager.particleManager.PlayParticle("PlayerDeathParticles");
         foreach(GameObject g in deathToRemove)
         {
             g.SetActive(false);
         }
-        SceneChanger.instance.ChangeScenes("Start",2.5f);
+        SceneChanger.instance.ChangeScenes(deathScene,2.5f);
     }
 
     [ContextMenu("Testdamage")]

@@ -24,7 +24,12 @@ public class ShadowBroEntity : Entity
 
     private void ShadowBroDeath()
     {
+        if (PlayerEntity.player.currentHealth <= 0)
+            return;
+        GetComponent<ShadowBroEnemyAI>().enabled = false;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<ForceMovementScript>().IncrementMovementActive();
+        GetComponent<FacingScript>().SetFacing((PlayerEntity.player.transform.position - transform.position).Vector3To2TopDown());
         Level2Director.instance.EnemyFinishingAttack();
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
 }

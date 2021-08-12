@@ -24,6 +24,8 @@ public class SceneChanger : MonoBehaviour
         yield return new WaitForSecondsRealtime(delay);
         OverlayEffectsScript.instance.FadeToBlack();
         yield return new WaitForSecondsRealtime(2f);
+        if(scene.Equals("Start"))
+            PlayerPrefs.SetInt("PencilCount", PlayerPrefs.GetInt("PencilCount", 1) + 1);
         SceneManager.LoadScene(scene);
     }
 }

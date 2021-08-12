@@ -45,4 +45,20 @@ public static class Extensionmethods
     {
         return Mathf.RoundToInt(val / roundTo) * roundTo;
     }
+
+    public static Vector2 GetOrthoAxisMultipliers(this Vector2 direction, float maxMultiplier)
+    {
+        float targetAngle = direction.Angle() * Mathf.Deg2Rad;
+        float widthMultiplier = 1 + maxMultiplier * Mathf.Abs(Mathf.Cos(targetAngle));
+        float lengthMultiplier = 1 + maxMultiplier * Mathf.Abs(Mathf.Sin(targetAngle));
+        return new Vector2(widthMultiplier, lengthMultiplier);
+    }
+
+    public static Vector2 GetOrthoAxisMultipliers(this Vector3 direction, float maxMultiplier)
+    {
+        float targetAngle = direction.Vector3To2TopDown().Angle() * Mathf.Deg2Rad;
+        float widthMultiplier = 1 + maxMultiplier * Mathf.Abs(Mathf.Cos(targetAngle));
+        float lengthMultiplier = 1 + maxMultiplier * Mathf.Abs(Mathf.Sin(targetAngle));
+        return new Vector2(widthMultiplier, lengthMultiplier);
+    }
 }

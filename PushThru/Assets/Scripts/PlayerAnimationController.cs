@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+public class PlayerAnimationController : MonoBehaviour
 {
     public Animator animator;
 
@@ -67,14 +67,14 @@ public class AnimationController : MonoBehaviour
     {
         Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
         SetBool("isPerformingAction", playerAttackManager.IsPerformingAction());
-        if(rbVel.magnitude > 0.5)
+        if(rbVel.magnitude > 0.5 && !playerAttackManager.IsPerformingAction())
         {
             if(SetBool("isRunning", true))
             {
                 ParticleManager.particleManager.PlayParticle("FootstepParticles");
             }
         }
-        else if(inputManager.inputVectorLastChanged > 0.2f)
+        else if(inputManager.inputVectorLastChanged > 0.2f || playerAttackManager.IsPerformingAction())
         {
             if(SetBool("isRunning", false))
             {               

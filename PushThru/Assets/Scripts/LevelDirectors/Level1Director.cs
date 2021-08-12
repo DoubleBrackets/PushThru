@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Level1Director : MonoBehaviour
 {
-    public AnimationController playerAnimController;
+    public PlayerAnimationController playerAnimController;
     public InputManager playerInputManager;
     public GameObject pressSpacebartostart;
 
@@ -61,8 +61,8 @@ public class Level1Director : MonoBehaviour
     private IEnumerator Corout_PlayerGetsUp()
     {
         yield return new WaitForSeconds(5f);
-        DialogueTextManager.instance.QueueMessage("This place looks familiar           \n                          \n but something's changed . . .");
-        DialogueTextManager.instance.QueueMessage("\n            [WASD] to move\n[E] to interact with Yellow Glowing Objects");
+        DialogueTextManager.instance.QueueMessage("This place looks familiar           \n                          \n but something's a little different . . .");
+        DialogueTextManager.instance.QueueMessage("[WASD] to move\n[E] to interact with Glowing Points");
         playerInputManager.movementInputEnabled--;
     }
 

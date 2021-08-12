@@ -21,19 +21,25 @@ public class FacingScript : MonoBehaviour
         UpdateFacing();
     }
 
+    public void SetFacing(Vector2 dir)
+    {
+        float angle = dir.Angle().RoundToIntMultiple(45);
+        rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
+    }
+
     public void UpdateFacing()
     {
         Vector2 rbVel = new Vector2(rb.velocity.x, rb.velocity.z / moveScript.zAxisMultiplier);
         float rawVelocityAngle = (Mathf.Rad2Deg * Mathf.Atan2(rb.velocity.z / moveScript.zAxisMultiplier, rb.velocity.x));
         float rawInputAngle = (Mathf.Rad2Deg * Mathf.Atan2(sourceInputVector.y, sourceInputVector.x));
-        float angle = 0;
+        float angle = 90-transform.rotation.eulerAngles.y;
         if (actionManager.IsPerformingAction())
         {
             angle = Mathf.Rad2Deg * Mathf.Atan2(actionManager.currentActionDirection.y, actionManager.currentActionDirection.x);
             angle = angle.RoundToIntMultiple(45);
             rb.transform.rotation = Quaternion.Euler(0, 90 - angle, 0);
         }
-        else if (rbVel.Vector2To3TopDown().magnitude > 0.2f)
+        else if (rbVel.Vector2To3TopDown().magnitude > 0.2f && moveScript.movementActive)
         {
             if (sourceInputVector != Vector2.zero)
             {

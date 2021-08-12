@@ -6,7 +6,7 @@ public class Level2Director : MonoBehaviour
 {
     public static Level2Director instance;
 
-    public AnimationController playerAnimController;
+    public PlayerAnimationController playerAnimController;
     public MeshRenderer[] InvertExpanding;
     public GameObject cameraTargetTransition;
 
@@ -29,6 +29,8 @@ public class Level2Director : MonoBehaviour
 
     public void EnemyFinishingAttack()
     {
+        healthBars.SetActive(false);
+        PlayerEntity.player.deathScene = "Start";
         StartCoroutine(Corout_FinishingAttack());
     }
 
@@ -37,15 +39,16 @@ public class Level2Director : MonoBehaviour
         InputManager.instance.IncrementAllInputEnabled();
         OverlayEffectsScript.instance.StartCutScene(shadowBro);
         yield return new WaitForSecondsRealtime(1f);
-        DialogueTextManager.instance.QueueMessage("???: . . . You've held out this time~");
-        DialogueTextManager.instance.QueueMessage("???: See you tomorrow, then.");
+        DialogueTextManager.instance.QueueMessage("???: . . . And still nothing changes.");
+        DialogueTextManager.instance.QueueMessage("???: Although you do look a little more tired each time . . . ");
+        DialogueTextManager.instance.QueueMessage("???: Maybe next time.");
         while (DialogueTextManager.instance.isDisplayingMessage)
         {
             yield return null;
         }
         ParticleManager.particleManager.PlayParticle("FinalAttackParticles");
         OverlayEffectsScript.instance.EndCutScene();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.5f);
         PlayerEntity.player.TakeDamage(new Attack(100000, Vector3.zero));
         InputManager.instance.DecrementAllInputEnabled();
     }
@@ -66,9 +69,8 @@ public class Level2Director : MonoBehaviour
         }
         OverlayEffectsScript.instance.StartCutScene(cameraTargetTransition);
         shadowBro.SetActive(true);
-        DialogueTextManager.instance.QueueMessage("???: Here again?");
-        DialogueTextManager.instance.QueueMessage("???: You'll never get rid of me, and it seems like I'll never get rid of you.");
-        DialogueTextManager.instance.QueueMessage("???: I guess you really want to do this till we die. Fair enough~");
+        DialogueTextManager.instance.QueueMessage("???: You're here again?");
+        DialogueTextManager.instance.QueueMessage("???: Seems like we can't ever get rid of each other.");
         frames = 100;
         for (int x = 0; x <= frames; x++)
         {
@@ -92,6 +94,8 @@ public class Level2Director : MonoBehaviour
         yield return new WaitForSeconds(1f);
         InputManager.instance.DecrementAllInputEnabled();
         healthBars.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        shadowBro.GetComponent<ShadowBroEnemyAI>().enabled = true;
     }
 
 

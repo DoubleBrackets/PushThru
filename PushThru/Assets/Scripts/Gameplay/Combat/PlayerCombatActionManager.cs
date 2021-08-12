@@ -126,7 +126,6 @@ public class PlayerCombatActionManager : CombatActionManager
 
         movementScript.IncrementMovementActive();
         ParticleManager.particleManager.PlayParticle("StarParticles");
-        ParticleManager.particleManager.PlayParticle("AttackDustParticles");
         BlockStartedEvent?.Invoke(dirNormalized);
     }
 
@@ -167,7 +166,7 @@ public class PlayerCombatActionManager : CombatActionManager
         basicAttackComboResetTimer = basicAttack.basicAttackDuration + 0.1f;
 
         //Damage&physics logic
-        Attack attack = new Attack(1, dirNormalized.Vector2To3TopDown(), 15, 0.1f);
+        Attack attack = new Attack(1, dirNormalized.Vector2To3TopDown(), 20, 0.2f);
         StartCoroutine(Corout_DoubleCast(basicAttack, attack, basicAttack.basicAttackDuration / 2f, dirNormalized));
 
         comboCounter++;
